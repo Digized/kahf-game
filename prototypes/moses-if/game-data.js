@@ -325,7 +325,7 @@ const gameData = {
             
             **Ending: The Patient Seeker**
             
-            You questioned Khidr only ${gameData.questionsAsked} time(s). Your patience, though tested, held strong enough to learn the deepest lessons.`,
+            You maintained patience through the journey, learning the deepest lessons.`,
             
             choices: []
         },
@@ -350,7 +350,7 @@ const gameData = {
             
             **Ending: The Humbled Prophet**
             
-            You questioned Khidr ${gameData.questionsAsked} times, breaking your promise of patience. Yet in this failure, you learned the deepest truth: human wisdom, no matter how great, cannot comprehend divine will without humility.`,
+            You questioned Khidr multiple times, breaking your promise of patience. Yet in this failure, you learned the deepest truth: human wisdom, no matter how great, cannot comprehend divine will without humility.`,
             
             choices: []
         }
