@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cave Sleepers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Atmosphere overlay for different time periods -->
+        <div id="atmosphere" class="ancient"></div>
+        
+        <!-- Header with faith meter -->
+        <header>
+            <div id="faith-display">
+                <span class="meter-label">Resolve</span>
+                <div id="faith-bar">
+                    <div id="faith-fill"></div>
+                </div>
+            </div>
+            <div id="time-indicator">Year: <span id="year-display">250 CE</span></div>
+        </header>
+        
+        <!-- Main scene area -->
+        <main id="content">
+            <div id="scene-image">
+                <!-- ASCII/visual representation of current scene -->
+                <div id="scene-visual"></div>
+            </div>
+            
+            <div id="text-container">
+                <div id="location-name"></div>
+                <div id="text-display"></div>
+            </div>
+            
+            <div id="choices"></div>
+            
+            <!-- Timer for timed choices -->
+            <div id="timer-container" style="display:none;">
+                <div id="timer-bar">
+                    <div id="timer-fill"></div>
+                </div>
+                <span id="timer-text">Time remaining...</span>
+            </div>
+        </main>
+        
+        <footer>
+            <button id="restart-btn" style="display:none;">Begin Again</button>
+            <div id="credits"></div>
+        </footer>
+    </div>
+    
+    <script src="scenes.js"></script>
+    <script src="engine.js"></script>
+</body>
+</html>
