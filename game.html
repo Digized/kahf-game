@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surah Al-Kahf - Interactive Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+            color: #e6e6e6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #game-container {
+            max-width: 800px;
+            width: 90%;
+            background: rgba(22, 22, 38, 0.8);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(183, 148, 92, 0.3);
+        }
+
+        #scene-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(180deg, #2a2a3e 0%, #1a1a2e 100%);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .silhouette {
+            width: 80px;
+            height: 120px;
+            background: #0a0a0f;
+            clip-path: polygon(30% 0%, 70% 0%, 85% 100%, 15% 100%);
+            margin: 0 10px;
+            opacity: 0.8;
+        }
+
+        .pattern-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(183, 148, 92, 0.05) 10px, rgba(183, 148, 92, 0.05) 20px);
+        }
+
+        h1 {
+            color: #b7945c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .chapter-title {
+            text-align: center;
+            color: #9a9a9a;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        #story-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        #choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .choice-btn {
+            background: rgba(183, 148, 92, 0.2);
+            border: 2px solid #b7945c;
+            color: #e6e6e6;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .choice-btn:hover {
+            background: rgba(183, 148, 92, 0.4);
+            transform: translateX(10px);
+        }
+
+        .lesson {
+            background: rgba(183, 148, 92, 0.1);
+            border-left: 4px solid #b7945c;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .lesson h3 {
+            color: #b7945c;
+            margin-bottom: 10px;
+        }
+
+        .restart-btn {
+            background: #b7945c;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .restart-btn:hover {
+            background: #d4a960;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Surah Al-Kahf</h1>
+        <div class="chapter-title" id="chapter-title">Chapter 1: The Cave Sleepers</div>
+        
+        <div id="scene-image">
+            <div class="pattern-overlay"></div>
+            <div class="silhouette"></div>
+            <div class="silhouette"></div>
+            <div class="silhouette"></div>
+        </div>
+
+        <div id="story-text"></div>
+        <div id="choices"></div>
+    </div>
+
+    <script src="story-data.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
