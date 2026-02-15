@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moses & Khidr - 3D Interactive Experience</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Canvas for Three.js -->
+    <div id="canvas-container"></div>
+    
+    <!-- UI Overlay -->
+    <div id="ui-overlay">
+        <!-- Patience Meter -->
+        <div id="patience-container">
+            <div class="label">Patience</div>
+            <div id="patience-bar">
+                <div id="patience-fill"></div>
+            </div>
+            <div id="patience-count">3 / 3</div>
+        </div>
+        
+        <!-- Story Text -->
+        <div id="story-panel">
+            <div id="story-text"></div>
+            <div id="choices-container"></div>
+        </div>
+        
+        <!-- Controls Info -->
+        <div id="controls-info">
+            <div>🖱️ Drag to rotate camera</div>
+            <div>🔍 Scroll to zoom</div>
+        </div>
+        
+        <!-- Restart Button (hidden initially) -->
+        <button id="restart-btn" style="display: none;">Restart Journey</button>
+    </div>
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h1>Moses & Khidr</h1>
+            <p>Loading 3D Experience...</p>
+            <div class="loading-bar">
+                <div class="loading-fill"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Three.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- Game Scripts -->
+    <script src="characters.js"></script>
+    <script src="environments.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
