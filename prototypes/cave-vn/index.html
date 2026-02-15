@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cave Sleepers - Visual Novel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Background layers -->
+        <div id="bg-layer" class="scene-bg city-day"></div>
+        <div id="overlay-layer"></div>
+        
+        <!-- UI Elements -->
+        <div id="ui-container">
+            <!-- Faith meter -->
+            <div id="faith-bar-container">
+                <div class="meter-label">Faith</div>
+                <div id="faith-bar">
+                    <div id="faith-fill"></div>
+                </div>
+            </div>
+            
+            <!-- Time pressure indicator (shown when active) -->
+            <div id="time-container" class="hidden">
+                <div class="meter-label">Time Remaining</div>
+                <div id="time-bar">
+                    <div id="time-fill"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Character portraits -->
+        <div id="characters-container"></div>
+        
+        <!-- Dialogue box -->
+        <div id="dialogue-container">
+            <div id="speaker-name"></div>
+            <div id="dialogue-text"></div>
+            <div id="choices-container"></div>
+            <button id="continue-btn" class="hidden">Continue</button>
+        </div>
+    </div>
+    
+    <script src="engine.js"></script>
+    <script src="story.js"></script>
+</body>
+</html>
