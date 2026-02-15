@@ -2,6 +2,10 @@
 
 Video game inspired by the four stories from Surah Al-Kahf.
 
+**🎮 [Play the Moses & Khidr Prototype](https://digized.github.io/kahf-game/prototypes/moses-if/)** (GitHub Pages)
+
+**📦 Repository:** https://github.com/Digized/kahf-game
+
 ## The Four Stories
 
 1. **The Cave Sleepers (Ashab al-Kahf)**
