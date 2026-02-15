@@ -262,19 +262,45 @@ const gameData = {
         revelation_patient: {
             text: `Khidr speaks:
             
-            "The boat belonged to poor fishermen. But a tyrannical king patrols these waters, seizing every perfect vessel for his navy. By damaging the boat, I made it unfit for seizure. The fishermen will repair it and keep their livelihood."
+            "The boat belonged to poor fishermen. But a tyrannical king patrols these waters, seizing every perfect vessel for his navy."
             
-            You feel understanding begin to dawn.
+            Understanding begins to dawn.
             
-            "The boy," Khidr continues, his voice gentle, "was destined to grow into a man of great evil. He would have driven his righteous parents to unbelief through his cruelty. God will grant them a better child, one who will be their comfort."
+            "By damaging the boat, I made it unfit for seizure. The fishermen will repair it and keep their livelihood."`,
+            
+            choices: [
+                { text: 'Continue', next: 'revelation_patient_2' }
+            ]
+        },
+        
+        revelation_patient_2: {
+            text: `"The boy," Khidr continues, his voice gentle.
+            
+            You brace yourself.
+            
+            "He was destined to grow into a man of great evil. He would have driven his righteous parents to unbelief through his cruelty."
             
             Tears well in your eyes.
             
-            "And the wall conceals a treasure belonging to two orphan boys in this town. Their father was righteous. When they come of age, they will discover it and be provided for. If the wall had fallen, the townspeople would have found and seized the treasure."
+            "God will grant them a better child, one who will be their comfort."`,
+            
+            choices: [
+                { text: 'Continue', next: 'revelation_patient_3' }
+            ]
+        },
+        
+        revelation_patient_3: {
+            text: `"And the wall," Khidr says, turning to look at the repaired structure.
+            
+            "It conceals a treasure belonging to two orphan boys in this town. Their father was righteous."
+            
+            "When they come of age, they will discover it and be provided for. If the wall had fallen, the townspeople would have found and seized it."
             
             Khidr places a hand on your shoulder.
             
-            "These were not my decisions, Moses. This is the knowledge of God, beyond human understanding. You remained patient longer than most. But even you, with all your wisdom, could not bear to witness divine will without explanation."`,
+            "These were not my decisions, Moses. This is the knowledge of God, beyond human understanding."
+            
+            "You remained patient longer than most. But even you, with all your wisdom, could not bear to witness divine will without explanation."`,
             
             choices: [
                 { text: 'Reflect on the lesson', next: 'ending_patient' }
@@ -284,17 +310,39 @@ const gameData = {
         revelation_impatient: {
             text: `Khidr speaks:
             
-            "The boat belonged to poor fishermen. But a tyrannical king patrols these waters, seizing every perfect vessel for his navy. By damaging the boat, I made it unfit for seizure. The fishermen will repair it and keep their livelihood."
+            "The boat belonged to poor fishermen. But a tyrannical king patrols these waters, seizing every perfect vessel for his navy."
             
-            Shame washes over you.
+            Shame begins to wash over you.
             
-            "The boy was destined to grow into a man of great evil. He would have driven his righteous parents to unbelief through his cruelty. God will grant them a better child, one who will be their comfort."
+            "By damaging the boat, I made it unfit for seizure. The fishermen will repair it and keep their livelihood."`,
+            
+            choices: [
+                { text: 'Continue', next: 'revelation_impatient_2' }
+            ]
+        },
+        
+        revelation_impatient_2: {
+            text: `"The boy was destined to grow into a man of great evil. He would have driven his righteous parents to unbelief through his cruelty."
             
             You cannot meet Khidr's eyes.
             
-            "And the wall conceals a treasure belonging to two orphan boys in this town. Their father was righteous. When they come of age, they will discover it and be provided for. If the wall had fallen, the townspeople would have found and seized the treasure."
+            "God will grant them a better child, one who will be their comfort."`,
             
-            "These were not my decisions, Moses. This is the knowledge of God. You are a great prophet, wise and strong. But even you could not witness the divine will without demanding explanation."
+            choices: [
+                { text: 'Continue', next: 'revelation_impatient_3' }
+            ]
+        },
+        
+        revelation_impatient_3: {
+            text: `"And the wall conceals a treasure belonging to two orphan boys in this town. Their father was righteous."
+            
+            "When they come of age, they will discover it and be provided for. If the wall had fallen, the townspeople would have found and seized the treasure."
+            
+            Khidr's voice becomes firm but not unkind.
+            
+            "These were not my decisions, Moses. This is the knowledge of God."
+            
+            "You are a great prophet, wise and strong. But even you could not witness the divine will without demanding explanation."
             
             He begins to walk away.
             
