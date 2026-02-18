@@ -8,7 +8,7 @@ body {
     font-family: Georgia, 'Times New Roman', serif;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: #e8e8e8;
-    line-height: 1.6;
+    line-height: 1.7;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -17,155 +17,209 @@ body {
 }
 
 #game-container {
-    max-width: 800px;
+    max-width: 780px;
     width: 100%;
-    background: rgba(15, 15, 25, 0.9);
-    border: 2px solid #4a5568;
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    background: rgba(12, 12, 22, 0.92);
+    border: 1px solid #2d3748;
+    border-radius: 6px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
     overflow: hidden;
 }
 
 header {
-    background: rgba(26, 32, 44, 0.95);
-    padding: 20px;
-    border-bottom: 2px solid #4a5568;
+    background: rgba(20, 26, 40, 0.98);
+    padding: 24px 30px;
+    border-bottom: 1px solid #2d3748;
 }
 
 h1 {
-    font-size: 1.5rem;
-    color: #f7fafc;
-    margin-bottom: 15px;
+    font-size: 1.35rem;
+    color: #c8c8d8;
     text-align: center;
-}
-
-#patience-display {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    color: #cbd5e0;
-}
-
-#patience-bar {
-    flex: 1;
-    height: 20px;
-    background: #2d3748;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid #4a5568;
-}
-
-#patience-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
-    width: 100%;
-    transition: width 0.5s ease, background 0.5s ease;
-}
-
-#patience-fill.medium {
-    background: linear-gradient(90deg, #ecc94b 0%, #d69e2e 100%);
-}
-
-#patience-fill.low {
-    background: linear-gradient(90deg, #f56565 0%, #e53e3e 100%);
+    letter-spacing: 0.03em;
+    font-weight: normal;
 }
 
 main {
-    padding: 30px;
+    padding: 36px 40px;
     min-height: 400px;
 }
 
 #text-display {
-    margin-bottom: 30px;
+    margin-bottom: 36px;
     font-size: 1.1rem;
-    line-height: 1.8;
+    line-height: 1.85;
+    color: #ddd8cc;
 }
 
 #text-display p {
-    margin-bottom: 15px;
+    margin-bottom: 1.2em;
+}
+
+#text-display p:last-child {
+    margin-bottom: 0;
 }
 
 #choices {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .choice-btn {
-    background: rgba(66, 153, 225, 0.2);
-    border: 2px solid #4299e1;
-    color: #e8e8e8;
-    padding: 15px 20px;
+    background: transparent;
+    border: 1px solid #3a4a60;
+    color: #b8bcc8;
+    padding: 14px 20px;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    border-radius: 4px;
+    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
     text-align: left;
     font-family: inherit;
+    line-height: 1.5;
 }
 
 .choice-btn:hover {
-    background: rgba(66, 153, 225, 0.4);
-    border-color: #63b3ed;
-    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: #6a7a90;
+    color: #e8e4dc;
 }
 
 .choice-btn:active {
-    transform: translateX(3px);
-}
-
-.choice-btn.question {
-    border-color: #fc8181;
-    background: rgba(252, 129, 129, 0.2);
-}
-
-.choice-btn.question:hover {
-    background: rgba(252, 129, 129, 0.3);
-    border-color: #f56565;
+    background: rgba(255, 255, 255, 0.07);
 }
 
 footer {
-    padding: 20px;
-    text-align: center;
-    border-top: 2px solid #4a5568;
-    background: rgba(26, 32, 44, 0.95);
+    padding: 28px 40px;
+    border-top: 1px solid #2d3748;
+    background: rgba(16, 20, 32, 0.98);
 }
 
 #restart-btn {
-    background: #4299e1;
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    font-size: 1rem;
+    background: transparent;
+    border: 1px solid #4a5568;
+    color: #8a9ab0;
+    padding: 10px 22px;
+    font-size: 0.9rem;
     cursor: pointer;
-    border-radius: 6px;
-    transition: background 0.3s ease;
+    border-radius: 4px;
+    font-family: inherit;
+    letter-spacing: 0.04em;
+    transition: border-color 0.25s ease, color 0.25s ease;
+    display: block;
+    margin: 0 auto 24px;
 }
 
 #restart-btn:hover {
-    background: #3182ce;
+    border-color: #6a7a90;
+    color: #c8d0dc;
 }
 
+/* ── Journey Mirror ──────────────────────────────────────── */
+
+#journey-mirror {
+    display: none;
+    opacity: 0;
+}
+
+#journey-mirror.mirror-reveal {
+    animation: mirrorFadeIn 1.2s ease forwards;
+}
+
+@keyframes mirrorFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.mirror-inner {
+    text-align: center;
+    padding-top: 4px;
+}
+
+.mirror-caption {
+    font-size: 0.82rem;
+    color: #5a6478;
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.mirror-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.mirror-table td {
+    padding: 6px 16px;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+}
+
+.mirror-name {
+    color: #5a6478;
+    text-align: right;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-right: 20px;
+}
+
+.mirror-name-you {
+    color: #7a8a9a;
+}
+
+.mirror-choices {
+    color: #6a7080;
+    text-align: left;
+    font-variant-numeric: tabular-nums;
+}
+
+.mirror-choices-you {
+    color: #b0b8c4;
+}
+
+.mirror-echo {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #4a5468;
+    font-style: italic;
+    letter-spacing: 0.03em;
+}
+
+/* ── Animations ──────────────────────────────────────────── */
+
 .fade-in {
-    animation: fadeIn 0.5s ease-in;
+    animation: fadeIn 0.6s ease both;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Mobile ──────────────────────────────────────────────── */
+
 @media (max-width: 600px) {
-    h1 {
-        font-size: 1.2rem;
+    main {
+        padding: 24px 20px;
     }
-    
+
+    footer {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.1rem;
+    }
+
     #text-display {
         font-size: 1rem;
     }
-    
-    main {
-        padding: 20px;
+
+    .mirror-table td {
+        padding: 5px 10px;
+        font-size: 0.88rem;
     }
 }
