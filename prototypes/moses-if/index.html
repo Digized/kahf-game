@@ -3,27 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Journey of Moses and Khidr</title>
+    <title>Moses & Khidr</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="game-container">
-        <header>
-            <h1>The Journey of Moses and Khidr</h1>
-        </header>
 
-        <main id="content">
-            <div id="text-display"></div>
-            <div id="choices"></div>
-        </main>
+    <!-- ── Title Screen ─────────────────────────────────────── -->
+    <div id="title-screen">
+        <div class="title-content">
+            <p class="title-arabic">موسى والخضر</p>
+            <h1 class="title-main">Moses &amp; Khidr</h1>
+            <div class="title-divider">✦ ✦ ✦</div>
+            <p class="title-subtitle">A journey through knowledge and patience</p>
+            <button class="begin-btn" id="begin-btn">Begin the Journey</button>
+        </div>
+    </div>
 
-        <footer>
-            <button id="restart-btn" style="display:none;">Begin again</button>
-            <div id="journey-mirror"></div>
-        </footer>
+    <!-- ── Game ─────────────────────────────────────────────── -->
+    <div id="game-wrapper">
+        <div class="game-container">
+
+            <header class="game-header">
+                <div class="patience-orbs" id="patience-orbs" aria-label="Patience remaining">
+                    <span class="patience-orb" id="orb-1"></span>
+                    <span class="patience-orb" id="orb-2"></span>
+                    <span class="patience-orb" id="orb-3"></span>
+                </div>
+            </header>
+
+            <!-- Hidden: engine.js expects this element -->
+            <div id="patience-fill"></div>
+
+            <main>
+                <div id="text-display"></div>
+                <div id="choices"></div>
+                <button id="restart-btn">Begin Again</button>
+            </main>
+
+        </div>
     </div>
 
     <script src="game-data.js"></script>
     <script src="engine.js"></script>
+
+    <script>
+        // ── Orb Mechanic ────────────────────────────────────────
+        // Override updatePatienceDisplay before the engine instantiates
+        // (this runs synchronously before DOMContentLoaded callbacks fire)
+
+        const _originalUpdate = GameEngine.prototype.updatePatienceDisplay;
+
+        GameEngine.prototype.updatePatienceDisplay = function () {
+            // Keep the engine's internal state updated (even though #patience-fill is hidden)
+            _originalUpdate.call(this);
+            // Reflect on orbs
+            _updateOrbs(this.data.patience);
+        };
+
+        const _originalRestart = GameEngine.prototype.restart;
+
+        GameEngine.prototype.restart = function () {
+            _originalRestart.call(this);
+            _updateOrbs(this.data.patience);
+        };
+
+        function _updateOrbs(patience) {
+            const orbs = document.querySelectorAll('.patience-orb');
+            orbs.forEach((orb, i) => {
+                // orbs are ordered left-to-right (orb-1, orb-2, orb-3)
+                // spent orbs come from the right as patience decreases
+                const orbNumber = i + 1; // 1-indexed
+                orb.classList.toggle('spent', orbNumber > patience);
+            });
+        }
+
+        // ── Scene Fade Transitions ──────────────────────────────
+        // Wrap loadScene to add a smooth fade between scenes
+
+        const _originalLoad = GameEngine.prototype.loadScene;
+
+        GameEngine.prototype.loadScene = function (sceneId) {
+            const wrapper = document.getElementById('game-wrapper');
+
+            // If content already exists, fade out first
+            const textDisplay = document.getElementById('text-display');
+            if (textDisplay && textDisplay.children.length > 0) {
+                wrapper.classList.add('scene-fade-out');
+                setTimeout(() => {
+                    wrapper.classList.remove('scene-fade-out');
+                    _originalLoad.call(this, sceneId);
+                    wrapper.classList.add('scene-fade-in');
+                    setTimeout(() => wrapper.classList.remove('scene-fade-in'), 400);
+                }, 320);
+            } else {
+                _originalLoad.call(this, sceneId);
+            }
+        };
+
+        // ── Title Screen ────────────────────────────────────────
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const titleScreen = document.getElementById('title-screen');
+            const beginBtn    = document.getElementById('begin-btn');
+
+            beginBtn.addEventListener('click', () => {
+                titleScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    titleScreen.style.display = 'none';
+                }, 650);
+            });
+        });
+    </script>
+
 </body>
 </html>

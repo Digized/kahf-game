@@ -1,303 +1,391 @@
-// Game data — Moses & Khidr, Surah Al-Kahf
+// Game data structure
 const gameData = {
     currentScene: 'start',
-
-    // Player's three binary decisions: 'silent' | 'asked' | null
-    decisions: { boat: null, boy: null, wall: null },
-
-    // Moses's actual choices from the Quran — all three times, he asked.
-    mosesPath: { boat: 'asked', boy: 'asked', wall: 'asked' },
+    patience: 3,
+    maxPatience: 3,
+    questionsAsked: 0,
+    choices: [],
 
     scenes: {
-
         start: {
-            text: `You are Moses.
+            text: `You are Moses, the prophet and leader of your people.
 
-You have spoken to God through fire in a desert. You have parted a sea with a staff. Your people call you prophet, and they are right.
+You have come far — through years of wandering, revelation, and divine encounter. Few in all the world have spoken to God as you have.
 
-But God has told you of another—a servant given a knowledge that bypasses revelation. A knowledge that lives in the marrow of things as they truly are, not as they appear. His name is Khidr.
+And then the word reaches you: there exists a man, somewhere along the confluence of two seas, who carries knowledge you do not possess.
 
-You have set out to find him.
+The thought sits with you longer than you expect.`,
 
-The question is what it will cost you.`,
             choices: [
-                { text: 'Find Khidr', next: 'meeting' }
+                { text: 'Seek out Khidr', next: 'meeting' }
             ]
         },
 
         meeting: {
-            text: `He is sitting by the water when you arrive. Not praying. Not teaching. Just watching the surface.
+            text: `You find Khidr by the shore, a cloaked figure gazing at the horizon.
 
-You tell him you want to travel with him—to learn from him.
+"I have come to learn from you," you say.
 
-He turns. His eyes are quiet in a way that is not entirely comfortable.
+Khidr turns. His eyes are ancient, unhurried. "You will not have patience with me, Moses."
 
-"Moses," he says. "You will not be able to bear what you see with me."
+"You will find me patient, if God wills it," you reply.
 
-You have stood before Pharaoh. You have led a people through forty years of desert. "I will be patient," you say. "If God wills it."
+"Then come," he says. "But do not question what I do. When the time is right, I will explain. Can you accept this?"`,
 
-"Then come," he says. "But make me a promise: do not ask me about anything. Not until I choose to tell you myself."
-
-You give him your word.`,
             choices: [
-                { text: 'I give you my word.', next: 'journey_start' }
+                { text: 'I accept. I will be patient.', next: 'journey_start' },
+                { text: 'How can I learn without asking questions?', next: 'meeting_question', isQuestion: true }
+            ]
+        },
+
+        meeting_question: {
+            text: `Khidr's expression softens, slightly.
+
+"Learning is not always through questioning," he says. "Sometimes it is through witnessing. Through patience. Through trusting that understanding will come."
+
+"Will you journey with me in silence, or will you stay behind?"`,
+
+            choices: [
+                { text: 'I will try. Let us begin.', next: 'journey_start' }
             ]
         },
 
         journey_start: {
-            text: `You walk together along the coast as the light changes over the water.
+            text: `You journey together in silence, walking along the coast. The sun glitters off the water.
 
-He is not a man who fills silence. You find yourself doing the same, falling into a quiet you hadn't known you were capable of.
+After some time, you reach a small harbor where a boat is moored. Poor fishermen are preparing it for the day's work.
 
-At the harbor, a group of fishermen are preparing their boat for the morning. They take one look at Khidr—something in how he holds himself—and offer you both passage without asking anything in return.
+Khidr approaches. "May we have passage?"
 
-You board. The water carries you out.
+The fishermen, recognizing his bearing, offer it freely. "No payment necessary, honored one."
 
-Then Khidr stands up.`,
+You board. The boat pushes off from shore.`,
+
             choices: [
-                { text: 'Continue', next: 'boat_damage' }
+                { text: 'Walk on', next: 'boat_damage' }
             ]
         },
 
         boat_damage: {
-            text: `He grabs a plank and pulls.
+            text: `The journey is peaceful at first. Then, without warning, Khidr stands and begins tearing at the planks of the boat.
 
-The wood splits with a sound like a bone breaking. Water pushes up through the gap, cold and immediate. The fishermen scramble, throwing their hands over the hole, shouting to one another, pressing rags into the breach.
+Wood splinters. Water seeps in.
 
-Their hands are shaking.
+The fishermen cry out, rushing to plug the hole. The boat is damaged but still floats.
 
-These are not wealthy men. You can see it in everything—the way their gear is mended and mended again, the way the youngest one's eyes go wide with the terror of someone watching the only thing they own come apart beneath them.
+You stare at Khidr. These men gave passage freely. They are poor. This boat is their livelihood.
 
-Khidr sits back down. Calm.
+Why would he do this?`,
 
-The boat does not sink. But it is damaged. They gave you passage freely, and their boat is damaged.
-
-You gave your word.`,
             choices: [
-                { text: 'Stay silent. You gave your word.', next: 'boat_silence', decision: { key: 'boat', value: 'silent' } },
-                { text: '"These men showed us kindness. Why did you do this?"', next: 'boat_question', decision: { key: 'boat', value: 'asked' } }
+                { text: 'Say nothing. I promised patience.', next: 'boat_silence' },
+                { text: 'Why did you damage their boat? They showed us kindness!', next: 'boat_question', isQuestion: true }
             ]
         },
 
         boat_silence: {
-            text: `You close your mouth.
+            text: `You bite your tongue, though every part of you wants to speak.
 
-The fishermen patch the hole with rags and prayer and the particular desperation of people who have no margin for this. The boat limps to shore. They help you off.
+Khidr meets your eyes. He sees your struggle, your restraint.
 
-Khidr says nothing. He simply walks.
+"Well done," he says quietly.
 
-You follow.`,
+The boat limps to shore. The fishermen see you off without anger.
+
+You and Khidr disembark and continue walking.`,
+
             choices: [
-                { text: 'Continue', next: 'village_arrival' }
+                { text: 'Walk on', next: 'village_arrival' }
             ]
         },
 
         boat_question: {
-            text: `Khidr does not raise his voice.
+            text: `Khidr looks at you steadily.
 
-"Did I not tell you that you would not be able to bear it?"
+"Did I not say you would lack patience with me?"
 
-You look at the fishermen wringing water from their clothes. The youngest is sitting very still, staring at the damaged hull.
+"These are poor men," you protest. "They offered kindness, and you repay them with destruction?"
 
-"You promised, Moses," Khidr says. "But I will continue with you. For now."
+"You have broken your promise," Khidr says. "But I will continue, for now."
 
-You step onto land.
+The boat reaches shore. You disembark in troubled silence.`,
 
-You follow him.`,
             choices: [
-                { text: 'Continue', next: 'village_arrival' }
+                { text: 'Walk on', next: 'village_arrival' }
             ]
         },
 
         village_arrival: {
-            text: `You travel inland as the afternoon heat settles into the stones.
+            text: `You travel inland and reach a small village as evening falls.
 
-A village. Children running between houses. The smell of bread. Someone calling out a name.
+Children play in the streets. Their laughter echoes between the clay houses.
 
-A boy comes sprinting around a corner—maybe eight years old, nine at most. He has just won something: a race, a game, some private victory that has lit him entirely from the inside. He is laughing the way children laugh when they've forgotten everything except this moment.
+Khidr watches them with an unreadable expression.
 
-He runs past Khidr.
+One boy, perhaps twelve years old, runs past chasing a ball. His face is bright with joy.
 
-Khidr's hand moves.`,
+Khidr steps forward.`,
+
             choices: [
-                { text: 'Continue', next: 'boy_death' }
+                { text: 'Watch', next: 'boy_death' }
             ]
         },
 
         boy_death: {
-            text: `The child is on the ground.
+            text: `What happens next is almost too quick to process.
 
-The laughter stops the way a candle stops—all at once, and then only the shape of where it was.
+Khidr strikes the boy. The child falls.
 
-You stand there. The world keeps moving around you without acknowledgment: wind in the palms, a goat complaining somewhere, the mundane afternoon continuing in every direction.
+He does not rise.
 
-Somewhere close, this child's mother is going about her day. She doesn't know yet. She will.
+You stand frozen. The laughter, the running, the joy — gone in an instant.
 
-The boy does not rise.
+Khidr has killed a child.
 
-You gave your word.`,
+Horror floods through you.`,
+
             choices: [
-                { text: 'Stay silent. God forgive you for staying silent.', next: 'boy_silence', decision: { key: 'boy', value: 'silent' } },
-                { text: '"You killed an innocent child."', next: 'boy_question', decision: { key: 'boy', value: 'asked' } }
+                { text: 'Keep silent, though it tears at you', next: 'boy_silence' },
+                { text: 'Have you killed an innocent soul?!', next: 'boy_question', isQuestion: true }
             ]
         },
 
         boy_silence: {
-            text: `You walk.
+            text: `You cannot speak. Your throat is tight with grief and shock.
 
-You don't understand how your legs are doing it, but you walk.
+Khidr begins walking away from the village. You follow, numb.
 
-He was laughing. That's the thing you can't stop returning to. He was laughing, and then the laugh was just—gone. The gap between those two moments is where something in you used to live.
+The boy's laughter still echoes in your memory.
 
-You walk.`,
+How can this be right? How can this be wisdom?
+
+But you said you would trust. You said you would be patient.
+
+You walk on in anguished silence.`,
+
             choices: [
-                { text: 'Continue', next: 'town_arrival' }
+                { text: 'Press forward', next: 'town_arrival' }
             ]
         },
 
         boy_question: {
-            text: `"You killed an innocent child."
+            text: `"Have you killed an innocent soul?!" you cry out. "A child who had done nothing wrong?!"
 
-Your voice is steadier than you expected.
+Khidr stops walking.
 
-Khidr stops walking. He looks at you.
+"Did I not tell you that you would not have patience with me?"
 
-"Did I not tell you that you would not be able to bear it?"
+"Patience?" Your voice breaks. "You have killed a child."
 
-You say nothing.
+"You have questioned me twice now, Moses," Khidr says. "If you question me once more, we must part ways."
 
-"If you ask me once more," he says quietly, "we part ways. That is the condition."
+The weight of those words hangs between you.`,
 
-He turns and walks. You stand there a moment longer, looking at the place in the dust where the boy fell.
-
-Then you follow.`,
             choices: [
-                { text: 'Continue', next: 'town_arrival' }
+                { text: 'Walk on in silence', next: 'town_arrival' }
             ]
         },
 
         town_arrival: {
-            text: `The town is prosperous. Large houses, clean lanes, men in fine clothes who look past you as though you are not there.
+            text: `Days pass. You reach a wealthy town as evening falls.
 
-You ask for food. You ask for somewhere to rest.
+The houses are large and well-kept. Well-dressed merchants hurry past without acknowledgment.
 
-Door after door. Eyes that slide away. The specific coldness of people who have enough and have decided that is the natural order of things—that their fullness and your emptiness are simply the world, correctly arranged.
+You and Khidr ask for food and shelter. Door after door closes.
 
-By evening you are sitting in an alley, hunger making your thoughts slow and heavy. Your feet ache. You are very tired.
+"We have no room for wanderers."
+"Try elsewhere."
+"Don't loiter here."
 
-Khidr rises.`,
+The town is prosperous. Its people are not.
+
+You sit hungry in an alley as the stars come out.`,
+
             choices: [
-                { text: 'Continue', next: 'wall_repair' }
+                { text: 'Wait', next: 'wall_repair' }
             ]
         },
 
         wall_repair: {
-            text: `At the edge of town, an old wall is coming apart—stones drifting from one another over years, the mortar long gone to dust and nothing.
+            text: `Khidr rises and walks to the edge of town where an old wall stands, crumbling and neglected.
 
-Khidr begins to rebuild it.
+Without a word, he begins repairing it. Stone by stone, careful and unhurried.
 
-You watch him. Your stomach has moved past complaint into a dull, settled emptiness. These people looked through you like you were air. They gave you nothing—not bread, not water, not even the acknowledgment of your standing at their door.
+You watch. Exhausted. Hungry.
 
-And Khidr is rebuilding their wall.
+These people refused you shelter. Refused you food. Showed no kindness.
 
-Carefully. Stone by stone. Like each one matters.
+Yet Khidr labors for them, asking nothing in return.`,
 
-He is not asking for payment. He is not asking for anything.
-
-You gave your word.`,
             choices: [
-                { text: 'Stay silent. Let him work.', next: 'wall_silence', decision: { key: 'wall', value: 'silent' } },
-                { text: '"At least you could have asked them to pay you."', next: 'wall_question', decision: { key: 'wall', value: 'asked' } }
+                { text: 'Stay silent. This is the last test.', next: 'wall_silence' },
+                { text: 'Why repair their wall? They gave us nothing!', next: 'wall_question', isQuestion: true }
             ]
         },
 
         wall_silence: {
-            text: `The stars come out.
+            text: `You hold your tongue. Your stomach growls. Your feet ache.
 
-Khidr finishes. He steps back and looks at what he's built. Then he looks at you.
+But you stay silent.
 
-"This is where we part, Moses." His voice is not unkind. "But before I go—I will tell you what I could not tell you before."`,
+Khidr completes the wall and steps back to examine his work.
+
+He turns to you — and there is something like sadness in his eyes.
+
+"You have done well to remain patient, Moses. But I see the questions burning within you."
+
+"Come. It is time for us to part. But first, I will explain."`,
+
             choices: [
-                { text: 'Listen.', next: 'revelation_boat' }
+                { text: 'Listen', next: 'revelation_patient' }
             ]
         },
 
         wall_question: {
-            text: `Khidr sets down the stone he is holding.
+            text: `"Why repair their wall?" you demand. "They refused us food and shelter. If you must work, at least ask payment!"
 
-He doesn't look angry. He just looks at you.
+Khidr sets down the stone he was holding.
 
-"This is the third time."
+"This is the third time you have questioned me, Moses."
 
-The words sit between you in the dark.
+"We must part ways now. But before we do — I will tell you what you could not bear to witness in patience."`,
 
-"I will tell you now what I could not tell you before. And then we part."`,
             choices: [
-                { text: 'Listen.', next: 'revelation_boat' }
+                { text: 'Listen', next: 'revelation_impatient' }
             ]
         },
 
-        revelation_boat: {
-            text: `"The boat.
+        revelation_patient: {
+            text: `Khidr speaks.
 
-The fishermen who gave us passage—there is a king who moves along that coast, seizing every vessel that is whole. Every one. For his fleet.
+"The boat belonged to poor fishermen. But a tyrannical king patrols these waters, seizing every vessel that is whole and sound."
 
-The damage made the boat unfit for seizure. They will repair it. They will keep it."
+Something begins to shift inside you.
 
-The harbor. The shaking hands. The youngest one sitting very still, staring at the hull.
+"By damaging it, I made it unfit for seizure. The fishermen will repair it. They will keep their livelihood."`,
 
-Mercy, dressed in the face of cruelty.`,
             choices: [
-                { text: 'Continue', next: 'revelation_boy' }
+                { text: 'Go on', next: 'revelation_patient_2' }
             ]
         },
 
-        revelation_boy: {
-            text: `"The boy."
+        revelation_patient_2: {
+            text: `"The boy," Khidr continues. His voice is gentle.
 
-You wait.
+You brace yourself.
 
-"He would have grown. And as he grew, he would have driven his parents—both of them people of faith, people of goodness—to disbelief. His nature was not something that was going to change. The love they had for him would have pulled them away from God, and they would have followed him into it.
+"He was destined to become a man of great cruelty. He would have driven his righteous parents — through grief and sin — away from their faith."
 
-God will give them another child."
+Your eyes sting.
 
-The laughing. The silence.
+"God will give them a better child. One who will be their comfort."`,
 
-You don't speak.`,
             choices: [
-                { text: 'Continue', next: 'revelation_wall' }
+                { text: 'Go on', next: 'revelation_patient_3' }
             ]
         },
 
-        revelation_wall: {
-            text: `"The wall conceals a treasure. It belongs to two boys in that town—orphans. Their father was a righteous man.
+        revelation_patient_3: {
+            text: `"And the wall," Khidr says, turning to look at the structure behind him.
 
-If the wall had crumbled before they came of age, the townspeople would have found what was hidden beneath it. You saw what those people are.
+"It conceals a treasure belonging to two orphan boys in this town. Their father was a righteous man."
 
-The wall had to stand. It has to stand until those boys are old enough to claim what is theirs.
+"When they come of age, they will find it and be provided for. If the wall had crumbled, the townspeople would have seized it."
 
-They will find it when they are ready."
+He places a hand on your shoulder.
 
-He is quiet for a moment.
+"These were not my decisions, Moses. This is the knowledge of God — beyond the reach of what any eye can see."
 
-"None of this was my own decision, Moses. Every act was commanded. I did not act from myself."
+"You remained patient longer than most could. Yet even you, with all your wisdom, could not bear witness without needing to understand."
 
-He turns to leave.`,
+He is not unkind when he says it. Just honest.`,
+
             choices: [
-                { text: 'Continue', next: 'ending' }
+                { text: 'Sit with this', next: 'ending_patient' }
             ]
         },
 
-        ending: {
-            text: `He goes.
+        revelation_impatient: {
+            text: `Khidr speaks.
 
-You stand in the dark with the repaired wall at your back and the stars overhead.
+"The boat belonged to poor fishermen. But a tyrannical king patrols these waters, seizing every vessel that is whole and sound."
 
-The boat. The boy. The wall.
+Shame begins to settle over you.
 
-He told you at the beginning. He said: you will not be able to bear it. And you said: I will be patient, if God wills it.
+"By damaging it, I made it unfit for seizure. The fishermen will repair it. They will keep their livelihood."`,
 
-You meant it when you said it.`,
+            choices: [
+                { text: 'Go on', next: 'revelation_impatient_2' }
+            ]
+        },
+
+        revelation_impatient_2: {
+            text: `"The boy was destined to become a man of great cruelty. He would have driven his righteous parents — through grief and sin — away from their faith."
+
+You cannot meet Khidr's eyes.
+
+"God will give them a better child. One who will be their comfort."`,
+
+            choices: [
+                { text: 'Go on', next: 'revelation_impatient_3' }
+            ]
+        },
+
+        revelation_impatient_3: {
+            text: `"And the wall conceals a treasure belonging to two orphan boys in this town. Their father was a righteous man."
+
+"When they come of age, they will find it and be provided for. If the wall had crumbled, the townspeople would have seized it."
+
+Khidr's voice becomes firm — but not unkind.
+
+"These were not my decisions, Moses. This is the knowledge of God."
+
+"You are a great prophet. Wise and strong. But even you could not stand still and let the divine will unfold without demanding an account."
+
+He begins to walk away.
+
+"Patience is harder than knowledge, Moses. Remember this."`,
+
+            choices: [
+                { text: 'Let it settle', next: 'ending_impatient' }
+            ]
+        },
+
+        ending_patient: {
+            text: `You stand in the fading light, overwhelmed.
+
+Every act of seeming cruelty — mercy in disguise.
+Every inexplicable deed — wisdom beyond what eyes can reach.
+
+You maintained patience longer than most. Yet even you stumbled at the edge of human understanding.
+
+Khidr's words stay with you:
+
+*"This is the knowledge of God — beyond the reach of what any eye can see."*
+
+You are Moses, prophet and leader. But in this moment, you are simply a student, humbled before something too large for certainty.
+
+Perhaps that, too, is part of the lesson.`,
+
+            choices: []
+        },
+
+        ending_impatient: {
+            text: `You stand alone as Khidr disappears into the distance.
+
+The truth settles like dust after a storm.
+
+Every act of seeming cruelty — mercy in disguise.
+Every inexplicable deed — wisdom beyond what any eyes could reach.
+
+You are Moses, beloved of God, leader of your people. And you could not stand still.
+
+Patience — real patience — turns out to be harder than any knowledge you have gained.
+
+Humility cuts deeper than any other lesson.
+
+You will carry this for the rest of your days.`,
+
             choices: []
         }
     }

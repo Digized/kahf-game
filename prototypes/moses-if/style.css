@@ -1,225 +1,314 @@
-* {
+/* =========================================
+   Moses & Khidr — v2 Stylesheet
+   Palette: deep dark / warm cream / desert amber
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* --- Reset & Base ----------------------------------------- */
+
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: Georgia, 'Times New Roman', serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    color: #e8e8e8;
-    line-height: 1.7;
+    background-color: #0D1117;
+    color: #E8DCC8;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 1.9;
     min-height: 100vh;
+}
+
+/* --- Title Screen ----------------------------------------- */
+
+#title-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background-color: #0D1117;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
-}
-
-#game-container {
-    max-width: 780px;
-    width: 100%;
-    background: rgba(12, 12, 22, 0.92);
-    border: 1px solid #2d3748;
-    border-radius: 6px;
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
-    overflow: hidden;
-}
-
-header {
-    background: rgba(20, 26, 40, 0.98);
-    padding: 24px 30px;
-    border-bottom: 1px solid #2d3748;
-}
-
-h1 {
-    font-size: 1.35rem;
-    color: #c8c8d8;
+    justify-content: center;
     text-align: center;
-    letter-spacing: 0.03em;
-    font-weight: normal;
+    transition: opacity 0.6s ease;
 }
 
-main {
-    padding: 36px 40px;
-    min-height: 400px;
+#title-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
 }
+
+.title-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 2rem;
+    max-width: 520px;
+}
+
+.title-arabic {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: #C9A84C;
+    opacity: 0.55;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.25rem;
+}
+
+.title-main {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    font-weight: 600;
+    color: #E8DCC8;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+}
+
+.title-divider {
+    color: #C9A84C;
+    font-size: 1.1rem;
+    letter-spacing: 0.6em;
+    opacity: 0.7;
+    margin: 0.25rem 0;
+}
+
+.title-subtitle {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: #E8DCC8;
+    opacity: 0.65;
+    letter-spacing: 0.01em;
+}
+
+.begin-btn {
+    margin-top: 1.6rem;
+    padding: 0.75rem 2.4rem;
+    background: transparent;
+    color: #C9A84C;
+    border: 1px solid #C9A84C;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.begin-btn:hover {
+    background: #C9A84C;
+    color: #0D1117;
+}
+
+.begin-btn:focus-visible {
+    outline: 2px solid #C9A84C;
+    outline-offset: 3px;
+}
+
+/* --- Game Wrapper ----------------------------------------- */
+
+#game-wrapper {
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+#game-wrapper.hidden {
+    /* Game loads in DOM immediately; title screen sits on top */
+}
+
+/* --- Game Container --------------------------------------- */
+
+.game-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+}
+
+/* --- Header / Patience Orbs ------------------------------ */
+
+.game-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid #2D2416;
+}
+
+.patience-orbs {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.patience-orb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #C9A84C;
+    transition: background-color 0.5s ease, opacity 0.5s ease;
+    display: block;
+}
+
+.patience-orb.spent {
+    background-color: #2D2416;
+}
+
+/* Hidden engine element — keeps engine.js happy */
+#patience-fill {
+    display: none;
+}
+
+/* --- Text Display ----------------------------------------- */
 
 #text-display {
-    margin-bottom: 36px;
-    font-size: 1.1rem;
-    line-height: 1.85;
-    color: #ddd8cc;
+    margin-bottom: 2.8rem;
 }
 
 #text-display p {
-    margin-bottom: 1.2em;
+    margin-bottom: 1.4em;
+    color: #E8DCC8;
+    opacity: 0;
 }
 
 #text-display p:last-child {
     margin-bottom: 0;
 }
 
+/* Italic for the starred lines in ending scenes */
+#text-display p:has(em) {
+    font-style: italic;
+    color: #C9A84C;
+    opacity: 0; /* will be overridden by fade-in */
+}
+
+/* --- Choices --------------------------------------------- */
+
 #choices {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.6rem;
+    margin-top: 2.4rem;
 }
 
 .choice-btn {
     background: transparent;
-    border: 1px solid #3a4a60;
-    color: #b8bcc8;
-    padding: 14px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+    border: none;
+    border-left: 2px solid transparent;
+    color: #E8DCC8;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
     text-align: left;
-    font-family: inherit;
-    line-height: 1.5;
+    padding: 0.55rem 1rem 0.55rem 1.1rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: border-color 0.25s ease, color 0.25s ease, padding-left 0.25s ease;
+    letter-spacing: 0.01em;
 }
 
 .choice-btn:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: #6a7a90;
-    color: #e8e4dc;
+    border-left-color: #C9A84C;
+    color: #C9A84C;
+    padding-left: 1.5rem;
 }
 
-.choice-btn:active {
-    background: rgba(255, 255, 255, 0.07);
+.choice-btn:focus-visible {
+    outline: none;
+    border-left-color: #C9A84C;
+    color: #C9A84C;
 }
 
-footer {
-    padding: 28px 40px;
-    border-top: 1px solid #2d3748;
-    background: rgba(16, 20, 32, 0.98);
-}
-
-#restart-btn {
-    background: transparent;
-    border: 1px solid #4a5568;
-    color: #8a9ab0;
-    padding: 10px 22px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    border-radius: 4px;
-    font-family: inherit;
-    letter-spacing: 0.04em;
-    transition: border-color 0.25s ease, color 0.25s ease;
-    display: block;
-    margin: 0 auto 24px;
-}
-
-#restart-btn:hover {
-    border-color: #6a7a90;
-    color: #c8d0dc;
-}
-
-/* ── Journey Mirror ──────────────────────────────────────── */
-
-#journey-mirror {
-    display: none;
+/* Question choices — earthy red-brown accent */
+.choice-btn.question {
+    color: #C4956A;
     opacity: 0;
 }
 
-#journey-mirror.mirror-reveal {
-    animation: mirrorFadeIn 1.2s ease forwards;
+.choice-btn.question:hover {
+    border-left-color: #8B4513;
+    color: #E8A87C;
+    padding-left: 1.5rem;
 }
 
-@keyframes mirrorFadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+/* --- Restart Button -------------------------------------- */
 
-.mirror-inner {
-    text-align: center;
-    padding-top: 4px;
-}
-
-.mirror-caption {
-    font-size: 0.82rem;
-    color: #5a6478;
-    letter-spacing: 0.02em;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    font-style: italic;
-}
-
-.mirror-table {
-    border-collapse: collapse;
-    margin: 0 auto;
-}
-
-.mirror-table td {
-    padding: 6px 16px;
-    font-size: 0.95rem;
-    letter-spacing: 0.05em;
-}
-
-.mirror-name {
-    color: #5a6478;
-    text-align: right;
+#restart-btn {
+    display: none;
+    margin-top: 3rem;
+    background: transparent;
+    border: 1px solid #2D2416;
+    color: #E8DCC8;
+    font-family: 'Cinzel', serif;
     font-size: 0.8rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding-right: 20px;
+    padding: 0.65rem 1.8rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease;
 }
 
-.mirror-name-you {
-    color: #7a8a9a;
+#restart-btn:hover {
+    border-color: #C9A84C;
+    color: #C9A84C;
 }
 
-.mirror-choices {
-    color: #6a7080;
-    text-align: left;
-    font-variant-numeric: tabular-nums;
-}
-
-.mirror-choices-you {
-    color: #b0b8c4;
-}
-
-.mirror-echo {
-    margin-top: 20px;
-    font-size: 0.8rem;
-    color: #4a5468;
-    font-style: italic;
-    letter-spacing: 0.03em;
-}
-
-/* ── Animations ──────────────────────────────────────────── */
-
-.fade-in {
-    animation: fadeIn 0.6s ease both;
-}
+/* --- Scene Transitions ----------------------------------- */
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* ── Mobile ──────────────────────────────────────────────── */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Scene-level fade for smooth transitions */
+.scene-fade-out {
+    animation: sceneFadeOut 0.35s ease forwards;
+}
+
+.scene-fade-in {
+    animation: sceneFadeIn 0.35s ease forwards;
+}
+
+@keyframes sceneFadeOut {
+    to { opacity: 0; transform: translateY(-4px); }
+}
+
+@keyframes sceneFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Responsive ------------------------------------------ */
 
 @media (max-width: 600px) {
-    main {
-        padding: 24px 20px;
+    .game-container {
+        padding: 2rem 1.25rem 4rem;
     }
 
-    footer {
-        padding: 20px;
+    .title-content {
+        padding: 1.5rem;
     }
 
-    h1 {
-        font-size: 1.1rem;
-    }
-
-    #text-display {
-        font-size: 1rem;
-    }
-
-    .mirror-table td {
-        padding: 5px 10px;
-        font-size: 0.88rem;
+    .title-main {
+        font-size: 2.2rem;
     }
 }
