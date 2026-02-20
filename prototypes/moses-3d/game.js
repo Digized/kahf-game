@@ -102,6 +102,67 @@ class MosesKhidrGame {
         
         // Update camera position for scene
         this.setCameraForScene(sceneId);
+        
+        // Trigger animations for specific scenes
+        this.triggerSceneAnimation(sceneId);
+    }
+    
+    triggerSceneAnimation(sceneId) {
+        // Delay slightly to let scene settle
+        setTimeout(() => {
+            switch(sceneId) {
+                case 'boat_damage':
+                    const boat = this.scene.userData.boat;
+                    if (boat) {
+                        AnimationController.breakBoat(boat, null);
+                    }
+                    break;
+                    
+                case 'boy_death':
+                    // Create a simple child character for the animation
+                    const child = CharacterFactory.createSimpleCharacter(0x7A6A5A, 0.7);
+                    child.position.set(2, 0, -2);
+                    this.scene.add(child);
+                    this.scene.userData.childCharacter = child;
+                    
+                    // Trigger fall after a moment
+                    setTimeout(() => {
+                        AnimationController.childFallSequence(this.scene, child, null);
+                    }, 800);
+                    break;
+                    
+                case 'wall_repair':
+                    const wall = this.scene.userData.wall;
+                    if (wall) {
+                        // Start repair after brief pause
+                        setTimeout(() => {
+                            AnimationController.repairWall(wall, null);
+                        }, 1500);
+                    }
+                    break;
+                    
+                case 'revelation_patient':
+                case 'revelation_impatient':
+                    // Show visions in sequence
+                    this.playRevelationVisions();
+                    break;
+            }
+        }, 500);
+    }
+    
+    playRevelationVisions() {
+        // Show three visions in sequence
+        setTimeout(() => {
+            AnimationController.showVision(this.scene, 'tyrant-boats', () => {
+                setTimeout(() => {
+                    AnimationController.showVision(this.scene, 'boy-future', () => {
+                        setTimeout(() => {
+                            AnimationController.showVision(this.scene, 'treasure', null);
+                        }, 500);
+                    });
+                }, 500);
+            });
+        }, 1000);
     }
     
     updateEnvironment(sceneId) {
