@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الجنتان - The Two Gardens</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h1 class="arabic-title">الجنتان</h1>
+            <h2 class="english-title">The Two Gardens</h2>
+            <p class="verse-ref">Quran 18:32-44</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-text">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Title Screen -->
+    <div id="title-screen">
+        <div class="title-content">
+            <h1 class="arabic-title">الجنتان</h1>
+            <h2 class="english-title">The Two Gardens</h2>
+            <p class="subtitle">A parable of gratitude and arrogance</p>
+            <p class="verse-ref">From Surah Al-Kahf (18:32-44)</p>
+            <button id="start-button" class="action-button">Begin</button>
+            <p class="controls-hint">Use mouse to look around • Click choices to proceed</p>
+        </div>
+    </div>
+
+    <!-- Game Canvas -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- UI Overlay -->
+    <div id="ui-overlay" style="display: none;">
+        <!-- Gratitude Meter -->
+        <div id="gratitude-meter">
+            <div class="meter-label">Gratitude</div>
+            <div class="meter-container">
+                <div class="meter-fill" id="gratitude-fill"></div>
+            </div>
+            <div class="meter-status" id="gratitude-status">Arrogant</div>
+        </div>
+
+        <!-- Dialogue Box -->
+        <div id="dialogue-box" style="display: none;">
+            <div class="speaker-name" id="speaker-name"></div>
+            <div class="dialogue-text" id="dialogue-text"></div>
+            <div class="dialogue-actions" id="dialogue-actions"></div>
+        </div>
+
+        <!-- Scene Title -->
+        <div id="scene-title" style="display: none;">
+            <div class="scene-title-text"></div>
+        </div>
+    </div>
+
+    <!-- Restart Button (appears at end) -->
+    <div id="restart-overlay" style="display: none;">
+        <div class="restart-content">
+            <h2 id="ending-title"></h2>
+            <p id="ending-text"></p>
+            <p class="verse-quote" id="ending-verse"></p>
+            <button id="restart-button" class="action-button">Reflect Again</button>
+        </div>
+    </div>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Game Modules -->
+    <script type="module" src="characters.js"></script>
+    <script type="module" src="environments.js"></script>
+    <script type="module" src="animations.js"></script>
+    <script type="module" src="game.js"></script>
+</body>
+</html>
