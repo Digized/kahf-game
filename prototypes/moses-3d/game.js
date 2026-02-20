@@ -63,17 +63,20 @@ class MosesKhidrGame {
     }
     
     setupLighting() {
-        // Ambient light
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        // Ambient light (warm)
+        const ambientLight = new THREE.AmbientLight(0xFFE8D0, 0.5);
         this.scene.add(ambientLight);
         
-        // Directional light (sun)
-        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        dirLight.position.set(5, 10, 5);
+        // Directional light (warm sun)
+        const dirLight = new THREE.DirectionalLight(0xFFD89B, 0.9);
+        dirLight.position.set(6, 12, 4);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 1024;
+        dirLight.shadow.mapSize.height = 1024;
         this.scene.add(dirLight);
         
-        // Hemisphere light for better ambiance
-        const hemiLight = new THREE.HemisphereLight(0x87ceeb, 0x8b7355, 0.3);
+        // Hemisphere light (warm sky, warm earth)
+        const hemiLight = new THREE.HemisphereLight(0xE8A870, 0xC4A07A, 0.4);
         this.scene.add(hemiLight);
     }
     
@@ -342,6 +345,12 @@ class MosesKhidrGame {
         if (boat) {
             boat.position.y = Math.sin(this.animationTime * 0.5) * 0.1;
             boat.rotation.z = Math.sin(this.animationTime * 0.3) * 0.02;
+        }
+        
+        // Animate water
+        const water = this.scene.userData.water;
+        if (water) {
+            EnvironmentFactory.animateWater(water, this.animationTime);
         }
         
         this.controls.update();
