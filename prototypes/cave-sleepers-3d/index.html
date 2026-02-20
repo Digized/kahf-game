@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أصحاب الكهف - People of the Cave</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Title Screen -->
+    <div id="title-screen">
+        <div class="title-content">
+            <p class="arabic">أصحاب الكهف</p>
+            <h1>People of the Cave</h1>
+            <p class="subtitle">A story of faith, refuge, and divine preservation</p>
+            <div class="divider">✦</div>
+            <button id="begin-btn">Enter the Story</button>
+        </div>
+    </div>
+
+    <!-- Canvas for Three.js -->
+    <div id="canvas-container"></div>
+    
+    <!-- UI Overlay -->
+    <div id="ui-overlay">
+        <!-- Faith Meter -->
+        <div id="faith-container">
+            <div class="label">Faith</div>
+            <div id="faith-bar">
+                <div id="faith-fill"></div>
+            </div>
+            <div id="faith-count">3 / 3</div>
+        </div>
+        
+        <!-- Story Text -->
+        <div id="story-panel">
+            <div id="story-text"></div>
+            <div id="choices-container"></div>
+        </div>
+        
+        <!-- Controls Info -->
+        <div id="controls-info">
+            <div>🖱️ Drag to rotate</div>
+            <div>🔍 Scroll/pinch to zoom</div>
+        </div>
+        
+        <!-- Restart Button -->
+        <button id="restart-btn" style="display: none;">Restart Journey</button>
+    </div>
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h1>أصحاب الكهف</h1>
+            <p>Loading 3D Experience...</p>
+            <div class="loading-bar">
+                <div class="loading-fill"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Three.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- Game Scripts -->
+    <script src="characters.js"></script>
+    <script src="environments.js"></script>
+    <script src="animations.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
