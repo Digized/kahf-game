@@ -367,7 +367,9 @@ You are Moses, prophet and leader. But in this moment, you are simply a student,
 
 Perhaps that, too, is part of the lesson.`,
 
-            choices: []
+            choices: [
+                { text: 'Continue', next: 'reflection' }
+            ]
         },
 
         ending_impatient: {
@@ -385,6 +387,22 @@ Patience — real patience — turns out to be harder than any knowledge you hav
 Humility cuts deeper than any other lesson.
 
 You will carry this for the rest of your days.`,
+
+            choices: [
+                { text: 'Continue', next: 'reflection' }
+            ]
+        },
+
+        reflection: {
+            text: `Moses was warned. He agreed. He still couldn't do it.
+
+Khidr's last words: **"I did not do it of my own accord."**
+
+Every act had a reason Moses couldn't see from where he stood. The story doesn't ask whether you can be patient — it asks whether you can trust that the picture is bigger than what you're looking at.
+
+---
+
+*Surah Al-Kahf 18:60–82*`,
 
             choices: []
         }
