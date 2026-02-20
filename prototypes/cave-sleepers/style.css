@@ -1,276 +1,271 @@
-* {
+/* =========================================
+   The Cave Sleepers — Stylesheet
+   Theme: Dark cave / stone / displacement
+   Palette: deep blacks, stone grays, dim amber
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* --- Reset & Base ----------------------------------------- */
+
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Georgia', serif;
-    background: #0a0a0a;
-    color: #d4c5aa;
-    line-height: 1.6;
-    overflow-x: hidden;
+    background: linear-gradient(180deg, #0a0a0a 0%, #1a1410 100%);
+    color: #b8aa94;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 1.85;
+    min-height: 100vh;
 }
 
-#game-container {
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-    min-height: 100vh;
+/* --- Title Screen ----------------------------------------- */
+
+#title-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: linear-gradient(180deg, #0a0a0a 0%, #1a1410 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: opacity 0.7s ease;
+}
+
+#title-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.title-content {
     display: flex;
     flex-direction: column;
-}
-
-/* Atmosphere overlay for different time periods */
-#atmosphere {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    transition: all 1.5s ease;
-}
-
-#atmosphere.ancient {
-    background: radial-gradient(ellipse at center, rgba(20,15,10,0.7) 0%, rgba(10,5,0,0.9) 100%);
-}
-
-#atmosphere.cave {
-    background: radial-gradient(ellipse at center, rgba(15,15,25,0.8) 0%, rgba(5,5,15,0.95) 100%);
-}
-
-#atmosphere.future {
-    background: radial-gradient(ellipse at center, rgba(25,30,35,0.7) 0%, rgba(15,20,25,0.9) 100%);
-}
-
-/* Header */
-header {
-    position: relative;
-    z-index: 10;
-    padding: 20px;
-    background: rgba(0,0,0,0.6);
-    border-bottom: 2px solid #3a2f1f;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 1.2rem;
+    padding: 2rem;
+    max-width: 540px;
 }
 
-#faith-display {
-    flex: 1;
-    max-width: 300px;
+.title-arabic {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    color: #8b7355;
+    opacity: 0.6;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.2rem;
 }
 
-.meter-label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 0.9em;
-    color: #a89968;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.title-main {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.6rem, 6.5vw, 3.6rem);
+    font-weight: 600;
+    color: #d4c5ad;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
 }
 
-#faith-bar {
-    width: 100%;
-    height: 20px;
-    background: rgba(50,40,30,0.8);
-    border: 1px solid #5a4a3a;
-    border-radius: 10px;
-    overflow: hidden;
+.title-divider {
+    color: #8b7355;
+    font-size: 1rem;
+    letter-spacing: 0.7em;
+    opacity: 0.5;
+    margin: 0.4rem 0;
 }
 
-#faith-fill {
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(90deg, #d4af37 0%, #f4e4b4 50%, #d4af37 100%);
-    transition: width 0.5s ease;
-    box-shadow: 0 0 10px rgba(212,175,55,0.5);
-}
-
-#time-indicator {
-    font-size: 1.1em;
-    color: #8a7a5a;
+.title-subtitle {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.2rem;
     font-style: italic;
+    color: #9a8a74;
+    max-width: 28rem;
+    line-height: 1.6;
 }
 
-/* Main content */
-main {
-    position: relative;
-    z-index: 10;
-    flex: 1;
-    padding: 20px;
+.title-note {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.95rem;
+    color: #6b5f4d;
+    opacity: 0.7;
+    margin-top: -0.5rem;
 }
 
-#scene-image {
-    margin-bottom: 30px;
-    min-height: 200px;
+.begin-btn {
+    margin-top: 1.5rem;
+    padding: 0.9rem 2.4rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #d4c5ad;
+    background: transparent;
+    border: 2px solid #5a4a38;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.begin-btn:hover {
+    background: rgba(90, 74, 56, 0.15);
+    border-color: #8b7355;
+    color: #e8dcc8;
+    box-shadow: 0 0 16px rgba(139, 115, 85, 0.2);
+}
+
+/* --- Game Container --------------------------------------- */
+
+#game-wrapper {
+    padding: 1.5rem;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#scene-visual {
-    font-family: 'Courier New', monospace;
-    font-size: 0.75em;
-    line-height: 1.2;
-    color: #8a7a5a;
-    text-align: center;
-    white-space: pre;
-    text-shadow: 0 0 5px rgba(138,122,90,0.3);
+.game-container {
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
 }
 
-#text-container {
-    background: rgba(0,0,0,0.5);
-    padding: 30px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    border: 1px solid #3a2f1f;
+/* --- Header & Trust Orbs ---------------------------------- */
+
+.game-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
 }
 
-#location-name {
-    font-size: 0.9em;
-    color: #a89968;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-    font-weight: bold;
+.trust-display {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
 }
+
+.trust-orb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #b89968 0%, #8b7355 70%);
+    box-shadow: 
+        0 0 8px rgba(184, 153, 104, 0.4),
+        inset 0 1px 3px rgba(255, 255, 255, 0.2);
+    transition: all 0.5s ease;
+}
+
+.trust-orb.faded {
+    background: radial-gradient(circle, #3a3228 0%, #2a251d 70%);
+    box-shadow: 
+        0 0 4px rgba(58, 50, 40, 0.3),
+        inset 0 1px 2px rgba(0, 0, 0, 0.4);
+    opacity: 0.4;
+}
+
+/* --- Text Display ----------------------------------------- */
 
 #text-display {
-    font-size: 1.1em;
-    line-height: 1.8;
-    margin-bottom: 20px;
+    margin-bottom: 2.5rem;
 }
 
 #text-display p {
-    margin-bottom: 15px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+}
+
+#text-display p:last-child {
+    margin-bottom: 0;
 }
 
 #text-display em {
-    color: #b4a478;
+    color: #c5b396;
     font-style: italic;
+    font-weight: 500;
 }
 
-#text-display strong {
-    color: #f4e4b4;
-}
+/* --- Choices ---------------------------------------------- */
 
-/* Choices */
 #choices {
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-bottom: 2rem;
 }
 
 .choice-btn {
-    display: block;
-    width: 100%;
-    padding: 15px 20px;
-    margin-bottom: 12px;
-    background: rgba(60,50,35,0.6);
-    border: 2px solid #5a4a3a;
-    color: #d4c5aa;
-    font-size: 1em;
-    font-family: 'Georgia', serif;
-    cursor: pointer;
+    padding: 1rem 1.5rem;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.08rem;
+    color: #b8aa94;
+    background: rgba(40, 35, 28, 0.4);
+    border: 1px solid #3a342a;
     border-radius: 3px;
-    transition: all 0.3s ease;
+    cursor: pointer;
     text-align: left;
+    transition: all 0.25s ease;
+    opacity: 0;
+    line-height: 1.5;
 }
 
 .choice-btn:hover {
-    background: rgba(80,65,45,0.8);
-    border-color: #8a7a5a;
-    transform: translateX(5px);
-    box-shadow: 0 0 15px rgba(212,175,55,0.2);
+    background: rgba(60, 52, 42, 0.6);
+    border-color: #5a4a38;
+    color: #d4c5ad;
+    transform: translateX(4px);
+    box-shadow: 0 2px 12px rgba(139, 115, 85, 0.15);
 }
 
-.choice-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.choice-btn.fearful {
+    border-color: #4a3a2a;
+    color: #9a8672;
 }
 
-.choice-btn.timed {
-    border-color: #8a5a3a;
-    background: rgba(80,50,30,0.6);
+.choice-btn.fearful:hover {
+    border-color: #6a5242;
+    color: #a89678;
 }
 
-.choice-btn.timed:hover {
-    border-color: #aa7a5a;
-}
-
-/* Timer */
-#timer-container {
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(80,40,20,0.4);
-    border: 1px solid #8a5a3a;
-    border-radius: 3px;
-}
-
-#timer-bar {
-    width: 100%;
-    height: 8px;
-    background: rgba(30,20,15,0.8);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 8px;
-}
-
-#timer-fill {
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(90deg, #c44 0%, #f66 50%, #c44 100%);
-    transition: width 0.1s linear;
-}
-
-#timer-text {
-    display: block;
-    text-align: center;
-    font-size: 0.9em;
-    color: #d4a5aa;
-    font-style: italic;
-}
-
-/* Footer */
-footer {
-    position: relative;
-    z-index: 10;
-    padding: 20px;
-    background: rgba(0,0,0,0.6);
-    border-top: 2px solid #3a2f1f;
-    text-align: center;
-}
+/* --- Restart Button --------------------------------------- */
 
 #restart-btn {
-    padding: 12px 30px;
-    background: rgba(60,50,35,0.8);
-    border: 2px solid #5a4a3a;
-    color: #d4c5aa;
-    font-size: 1em;
-    font-family: 'Georgia', serif;
+    display: none;
+    margin: 2rem auto 0;
+    padding: 0.85rem 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #b8aa94;
+    background: transparent;
+    border: 2px solid #4a3a2a;
+    border-radius: 2px;
     cursor: pointer;
-    border-radius: 3px;
     transition: all 0.3s ease;
+    text-transform: uppercase;
 }
 
 #restart-btn:hover {
-    background: rgba(80,65,45,0.9);
-    border-color: #8a7a5a;
-    box-shadow: 0 0 15px rgba(212,175,55,0.3);
+    background: rgba(74, 58, 42, 0.2);
+    border-color: #6a5242;
+    color: #d4c5ad;
 }
 
-#credits {
-    margin-top: 15px;
-    font-size: 0.85em;
-    color: #6a5a4a;
-    font-style: italic;
-}
+/* --- Animations ------------------------------------------- */
 
-/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(8px);
     }
     to {
         opacity: 1;
@@ -279,38 +274,65 @@ footer {
 }
 
 .fade-in {
-    animation: fadeIn 0.8s ease;
+    animation: fadeIn 0.6s ease forwards;
 }
 
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
+.scene-fade-out {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.scene-fade-in {
+    opacity: 1;
+    transition: opacity 0.45s ease;
+}
+
+/* --- Responsive ------------------------------------------- */
+
+@media (max-width: 640px) {
+    body {
+        font-size: 1.05rem;
+        line-height: 1.75;
     }
-    50% {
-        opacity: 0.6;
+
+    .title-main {
+        font-size: 2.2rem;
+    }
+
+    .title-subtitle {
+        font-size: 1.05rem;
+    }
+
+    .begin-btn {
+        padding: 0.8rem 2rem;
+        font-size: 0.95rem;
+    }
+
+    #game-wrapper {
+        padding: 1rem;
+    }
+
+    .choice-btn {
+        padding: 0.9rem 1.2rem;
+        font-size: 1.02rem;
+    }
+
+    .trust-orb {
+        width: 12px;
+        height: 12px;
     }
 }
 
-.pulse {
-    animation: pulse 2s ease infinite;
-}
+@media (max-width: 400px) {
+    .title-content {
+        gap: 1rem;
+    }
 
-/* Responsive */
-@media (max-width: 600px) {
-    header {
-        flex-direction: column;
-        gap: 15px;
+    .title-main {
+        font-size: 1.9rem;
     }
-    
-    #faith-display {
-        max-width: 100%;
-    }
-    
-    #text-container {
-        padding: 20px;
-    }
-    
-    #scene-visual {
-        font-size: 0.6em;
+
+    #choices {
+        gap: 0.75rem;
     }
 }

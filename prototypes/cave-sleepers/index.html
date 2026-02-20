@@ -4,54 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Cave Sleepers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="game-container">
-        <!-- Atmosphere overlay for different time periods -->
-        <div id="atmosphere" class="ancient"></div>
-        
-        <!-- Header with faith meter -->
-        <header>
-            <div id="faith-display">
-                <span class="meter-label">Resolve</span>
-                <div id="faith-bar">
-                    <div id="faith-fill"></div>
-                </div>
-            </div>
-            <div id="time-indicator">Year: <span id="year-display">250 CE</span></div>
-        </header>
-        
-        <!-- Main scene area -->
-        <main id="content">
-            <div id="scene-image">
-                <!-- ASCII/visual representation of current scene -->
-                <div id="scene-visual"></div>
-            </div>
-            
-            <div id="text-container">
-                <div id="location-name"></div>
-                <div id="text-display"></div>
-            </div>
-            
-            <div id="choices"></div>
-            
-            <!-- Timer for timed choices -->
-            <div id="timer-container" style="display:none;">
-                <div id="timer-bar">
-                    <div id="timer-fill"></div>
-                </div>
-                <span id="timer-text">Time remaining...</span>
-            </div>
-        </main>
-        
-        <footer>
-            <button id="restart-btn" style="display:none;">Begin Again</button>
-            <div id="credits"></div>
-        </footer>
+
+    <!-- ── Title Screen ─────────────────────────────────────── -->
+    <div id="title-screen">
+        <div class="title-content">
+            <p class="title-arabic">أصحاب الكهف</p>
+            <h1 class="title-main">The Cave Sleepers</h1>
+            <div class="title-divider">✦ ✦ ✦</div>
+            <p class="title-subtitle">A story of faith, time, and displacement</p>
+            <p class="title-note">Surah Al-Kahf, verses 9–26</p>
+            <button class="begin-btn" id="begin-btn">Enter the Story</button>
+        </div>
     </div>
-    
-    <script src="scenes.js"></script>
+
+    <!-- ── Game ─────────────────────────────────────────────── -->
+    <div id="game-wrapper">
+        <div class="game-container">
+
+            <header class="game-header">
+                <div class="trust-display" id="trust-display" aria-label="Companions' bond">
+                    <span class="trust-orb" id="trust-orb-1"></span>
+                    <span class="trust-orb" id="trust-orb-2"></span>
+                    <span class="trust-orb" id="trust-orb-3"></span>
+                </div>
+            </header>
+
+            <main>
+                <div id="text-display"></div>
+                <div id="choices"></div>
+                <button id="restart-btn">Begin Again</button>
+            </main>
+
+        </div>
+    </div>
+
+    <script src="game-data.js"></script>
     <script src="engine.js"></script>
+
+    <script>
+        // ── Trust Orb Mechanic ──────────────────────────────────
+        // Orbs represent the bond with your companions
+        // Fearful/isolating choices dim the orbs
+
+        const _originalUpdateTrust = GameEngine.prototype.updateTrustDisplay;
+
+        GameEngine.prototype.updateTrustDisplay = function () {
+            _originalUpdateTrust.call(this);
+            _updateTrustOrbs(this.data.companionsTrust);
+        };
+
+        const _originalRestart = GameEngine.prototype.restart;
+
+        GameEngine.prototype.restart = function () {
+            _originalRestart.call(this);
+            _updateTrustOrbs(this.data.companionsTrust);
+        };
+
+        function _updateTrustOrbs(trust) {
+            const orbs = document.querySelectorAll('.trust-orb');
+            orbs.forEach((orb, i) => {
+                const orbNumber = i + 1;
+                orb.classList.toggle('faded', orbNumber > trust);
+            });
+        }
+
+        // ── Scene Fade Transitions ──────────────────────────────
+
+        const _originalLoad = GameEngine.prototype.loadScene;
+
+        GameEngine.prototype.loadScene = function (sceneId) {
+            const wrapper = document.getElementById('game-wrapper');
+
+            const textDisplay = document.getElementById('text-display');
+            if (textDisplay && textDisplay.children.length > 0) {
+                wrapper.classList.add('scene-fade-out');
+                setTimeout(() => {
+                    wrapper.classList.remove('scene-fade-out');
+                    _originalLoad.call(this, sceneId);
+                    wrapper.classList.add('scene-fade-in');
+                    setTimeout(() => wrapper.classList.remove('scene-fade-in'), 450);
+                }, 350);
+            } else {
+                _originalLoad.call(this, sceneId);
+            }
+        };
+
+        // ── Title Screen ────────────────────────────────────────
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const titleScreen = document.getElementById('title-screen');
+            const beginBtn = document.getElementById('begin-btn');
+
+            if (beginBtn && titleScreen) {
+                beginBtn.addEventListener('click', () => {
+                    titleScreen.classList.add('fade-out');
+                    setTimeout(() => {
+                        titleScreen.style.display = 'none';
+                    }, 700);
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>

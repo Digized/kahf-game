@@ -1,235 +1,167 @@
-# Cave Sleepers - Prototype
+# The Cave Sleepers
+
+Interactive fiction prototype for Surah Al-Kahf project  
+**Story Source:** Quran 18:9–26
+
+---
 
 ## Overview
 
-**Cave Sleepers** is a visual novel-style interactive narrative exploring the Quranic story of Ashab al-Kahf (The People of the Cave / Seven Sleepers of Ephesus).
+A time-displacement narrative exploring faith, persecution, and the disorientation of waking up in the wrong century. You are one of the young believers who fled persecution and hid in a cave — only to discover you've slept for over 300 years.
 
-**Genre:** Visual novel with tension mechanics  
-**Platform:** Web (HTML/CSS/JavaScript)  
-**Playtime:** 30-45 minutes  
-**Prototype Version:** 1.0
+### Core Theme
+**"What do you do when your world no longer exists?"**
 
-## Story
+Faith was tested by persecution *then*. Now it's tested by displacement.
 
-Young believers in 3rd century Ephesus face persecution for refusing to worship the imperial gods. They flee to a cave for refuge, where God causes them to sleep for 300+ years. Upon waking, they discover a world transformed—persecution ended, faith triumphant.
+---
 
-## Core Themes
+## Story Summary
 
-- **Faith under pressure** — choosing conviction despite mortal danger
-- **Time displacement** — waking to an utterly changed world
-- **Divine protection** — trust in the unseen
-- **Wonder** — experiencing the miraculous
-- **Purpose** — understanding why you were preserved
+- **Setting:** Ancient city under tyrannical rule demanding idol worship
+- **Protagonists:** Young believers who refuse to compromise their faith
+- **Crisis:** Flee to a cave for safety, pray for mercy, fall asleep
+- **Displacement:** Wake believing it's been one day — it's been 300+ years
+- **Discovery:** The city has transformed; the empire they fled is dust
+- **Choice:** Do you venture into this new world, or retreat into isolation?
 
-## Unique Mechanics
+---
 
-### 1. Resolve/Faith Meter
-- Starts at 100%
-- Affected by player choices
-- Not a "win/lose" condition, but reflects emotional/spiritual state
-- Visual feedback (color changes, glow effects)
+## Gameplay
 
-### 2. Timed Decisions
-- Certain critical moments have countdown timers
-- Creates tension and urgency
-- Forces instinctive rather than calculated choices
-- Auto-selects first option if time expires
+- **Format:** Browser-based interactive fiction
+- **Duration:** 20–40 minutes
+- **Perspective:** First-person (you are one of the youth)
+- **Mechanic:** Branching narrative with meaningful choices
+- **Trust Orbs:** Represent your bond with your companions (dimmed by fearful/isolating choices)
 
-### 3. Atmospheric Shifts
-- Visual background changes between time periods:
-  - **Ancient** (persecution era) - dark, oppressive
-  - **Cave** (sanctuary) - peaceful, sheltered
-  - **Future** (post-persecution) - lighter, changed
-- Smooth CSS transitions enhance immersion
+### Multiple Endings
 
-### 4. ASCII Art Scenes
-- Each scene has visual representation
-- Creates atmosphere without heavy graphics
-- Works well on low-resource devices (Pi constraint)
-- Nostalgic, stylized aesthetic
+The story branches based on key decisions:
 
-## Differentiation from Moses Prototype
+1. **Isolation** — Stay hidden, refuse the new world
+2. **Emergence** — Face the changed world together
+3. **Fearful Isolation** — Panic-driven retreat into darkness
+4. **Witnessing** — Accept becoming a sign/miracle to others
+5. **Rejection** — Refuse to be mythologized, return to sleep
+6. **Additional variations** based on who enters the city
 
-The Moses prototype is pure text-based interactive fiction. Cave Sleepers differs by:
+---
 
-1. **Visual presentation** - ASCII art scenes, atmospheric overlays
-2. **Pressure mechanics** - faith meter + timed choices
-3. **Genre feel** - visual novel vs. classic IF
-4. **Pacing** - More cinematic, less text-heavy
-5. **Emotional focus** - Tension → Relief → Wonder (vs. patience/learning in Moses)
+## Technical Details
 
-## Technical Implementation
+### Stack
+- Pure HTML/CSS/JavaScript
+- Zero dependencies
+- Works offline
+- Mobile-responsive
 
 ### Files
-- `index.html` - Structure and DOM elements
-- `style.css` - Visual styling, animations, responsive design
-- `scenes.js` - Story content, branching narrative
-- `engine.js` - Game logic, state management, rendering
+- `index.html` — Structure and inline scripting
+- `style.css` — Dark/contemplative visual design
+- `game-data.js` — All story content and branching logic
+- `engine.js` — Game state management and rendering
+- `README.md` — This file
 
-### Key Features
-- **No external dependencies** - Pure vanilla JS
-- **Responsive** - Works on mobile and desktop
-- **Lightweight** - ~50KB total, suitable for Pi
-- **Accessible** - Semantic HTML, keyboard navigation
+### Design
+- Dark gradient background (cave-like)
+- Stone/amber color palette
+- Cinzel (headings) + Crimson Text (body) fonts
+- Smooth fade transitions between scenes
+- Minimal, focused UI
 
-### Browser Compatibility
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- ES6 JavaScript
-- CSS Grid and Flexbox
-- Tested on low-resource devices
+---
 
-## Running the Prototype
+## Running the Game
 
-### Local
-1. Open `index.html` in any modern web browser
-2. No server required (can run from file://)
+1. Open `index.html` in any modern browser
+2. Click "Enter the Story"
+3. Read and make choices
+4. Experience one of multiple endings
+5. Click "Begin Again" to explore different paths
 
-### Web Server (optional)
-```bash
-# Simple Python server
-python3 -m http.server 8000
+No server required. No build process.
 
-# Then visit http://localhost:8000
-```
-
-## Story Structure
-
-### Acts
-
-**Act 1: Persecution** (Scenes: start → secret_meeting)
-- Establish danger and conviction
-- Choose between caution and boldness
-
-**Act 2: Flight** (Scenes: escape variants)
-- Tension and time pressure
-- Navigate hostile environment
-- Timed decisions under stress
-
-**Act 3: Sanctuary** (Scenes: cave entrance → sleep)
-- Peace after danger
-- Faith solidified
-- Surrender to divine protection
-
-**Act 4: Awakening** (Scenes: awakening → discovery)
-- Disorientation and wonder
-- Gradual realization of time passed
-- Mystery and exploration
-
-**Act 5: Resolution** (Scenes: market → reunion → endings)
-- Truth revealed
-- Purpose understood
-- Two ending variants
-
-### Branching Points
-
-Major branches:
-1. Public declaration vs. secret meeting
-2. Warning mission (risky) vs. immediate flight
-3. Volunteer vs. draw lots
-4. Flee market vs. stay calm
-5. Witness ending vs. reflection ending
-
-Total scenes: 23
-Unique paths: ~8-10 depending on choices
+---
 
 ## Design Philosophy
 
-### Tension Mechanics
-- Timed choices simulate real pressure
-- Faith meter provides emotional feedback
-- Not punitive—all paths reach meaningful endings
+### What Worked from Moses Prototype
+- Clean, distraction-free reading experience
+- Meaningful choice mechanic (not just flavor)
+- Visual feedback for player state (orbs)
+- Multiple endings that genuinely differ
+- No skill checks or "fail states" — only narrative consequences
 
-### Accessibility
-- No "wrong" choices that lock out content
-- Multiple paths to key story beats
-- Different endings reflect player approach, not success/failure
-
-### Respect for Source Material
-- Based on Surah Al-Kahf (Quran 18:9-26)
-- Honors the spiritual themes
-- Historical setting (Decius persecution, ~250 CE)
-- Names drawn from Islamic and Christian traditions
-
-## Playtime & Replayability
-
-**First Playthrough:** 30-45 minutes  
-**Replay Value:** Moderate
-- Two distinct endings
-- Different paths to discovery
-- Timed choices create varied experiences
-
-## Future Expansion Ideas
-
-If developing beyond prototype:
-
-1. **Sound design** - Ambient audio, tension music
-2. **More detailed art** - Pixel art scenes instead of ASCII
-3. **Additional branches** - More choice variety
-4. **Character development** - Deeper companion interactions
-5. **Historical details** - More period-specific content
-6. **Multiple perspectives** - Play as different companions
-7. **Save system** - Bookmark progress
-8. **Achievements** - Discover all paths
-
-## Technical Notes
-
-### Pi Constraints Addressed
-- **Lightweight:** No heavy frameworks or libraries
-- **Low resource:** Minimal CPU/memory usage
-- **Fast load:** Small file sizes
-- **No server required:** Static files only
-
-### Performance
-- Smooth on Raspberry Pi 4
-- No lag or frame drops
-- Instant scene transitions
-- Efficient timer implementation
-
-## Credits
-
-**Story Source:** Surah Al-Kahf (Quran 18:9-26)  
-**Historical Context:** Seven Sleepers of Ephesus legend  
-**Developed for:** Kahf Game Project  
-**Prototype Build:** February 2026
-
-## License
-
-Part of the Kahf Game Project. See main repository for licensing.
+### Adaptations for Cave Sleepers
+- Removed "patience/questioning" mechanic (Moses-specific)
+- Added "companions' bond" represented by trust orbs
+- Emphasized disorientation and time displacement
+- Darker visual palette
+- Longer story (more scenes, more branching)
+- Themes of belonging, identity, and witnessing
 
 ---
 
-## Development Log
+## Target Audience
 
-### Prototype Goals Achieved
-✅ Different genre than Moses text-based IF  
-✅ Web-based (Pi-compatible)  
-✅ Captures themes: faith under pressure, time displacement, wonder  
-✅ Unique mechanics: faith meter + timed choices  
-✅ 30-60 minute playtime  
-✅ Playable prototype with documentation  
-✅ Atmospheric visual presentation  
+**Age:** 24–30  
+**Genre familiarity:** Interactive fiction, walking sims, contemplative games  
+**Faith background:** Muslim or curious about Quranic narratives  
+**Tone preference:** Literary, reflective, emotionally resonant
 
-### What Works Well
-- Timed choices create genuine tension
-- Faith meter provides subtle feedback
-- ASCII art establishes atmosphere efficiently
-- Branching feels meaningful
-- Emotional arc (fear → peace → wonder) lands strongly
-
-### Areas for Improvement
-- Could use more visual variety
-- Sound would enhance immersion significantly
-- More replayability could be built in
-- Character personalities could be more distinct
-- Some historical details could be richer
-
-### Lessons Learned
-- Visual novel format suits this story well
-- Pressure mechanics enhance engagement
-- Simple visuals can be very effective
-- Faith meter adds layer without complexity
-- Time displacement is powerful narrative device
+Not preachy. Not a quiz. A story that wrestles with timeless questions through a specific lens.
 
 ---
 
-**Next Steps:** Playtest, gather feedback, iterate. Consider which elements to bring forward to full game development.
+## Themes Explored
+
+- **Faith Under Pressure:** Persecution vs. displacement as different tests
+- **Time Displacement:** Everything you knew is gone
+- **Companionship:** Your fellow believers as the only constants
+- **Choice vs. Destiny:** God preserved you — but for what?
+- **Witnessing:** What does it mean to be a living sign?
+- **Belonging:** Can you build a life in a world that remembers you as myth?
+
+---
+
+## Development Notes
+
+- Built as part of 4-story Surah Kahf game concept
+- Reuses proven engine structure from Moses prototype
+- Designed for easy iteration and content updates
+- Could be extended with:
+  - Sound design (cave ambience, city sounds)
+  - Subtle background animations
+  - Character portraits
+  - Save/load functionality
+  - Analytics to track common player paths
+
+---
+
+## Story Beats (Quran 18:9–26)
+
+1. Youth refuse idol worship in a city under persecution
+2. Flee to a cave, pray for mercy and guidance
+3. God causes them to sleep (verse 11: "We sealed their ears")
+4. Wake up thinking it's been a day or part of a day
+5. Send someone to buy food with old currency
+6. Discover centuries have passed; city is now Muslim
+7. People discover them as a miracle/sign
+8. Debate over the cave and its meaning
+9. They die (or return to sleep, interpretations vary)
+
+**This prototype focuses on beats 1–7**, ending at the moment of discovery/decision.
+
+---
+
+## License & Usage
+
+Part of the Kahf Game project.  
+For presentation and playtesting purposes.
+
+---
+
+**Last Updated:** 2026-02-20  
+**Version:** 1.0  
+**Prototype Stage:** Complete
