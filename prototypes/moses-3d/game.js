@@ -50,28 +50,42 @@ class MosesKhidrGame {
         // Scene
         this.scene = new THREE.Scene();
         
-        // Camera
+        // Camera (near plane increased to prevent clipping)
         this.camera = new THREE.PerspectiveCamera(
             60,
             window.innerWidth / window.innerHeight,
-            0.1,
+            0.5,  // Increased from 0.1 to reduce near-plane clipping
             1000
         );
         this.camera.position.set(0, 5, 10);
         
-        // Renderer
-        this.renderer = new THREE.WebGLRenderer({ antialias: true });
+        // Renderer (optimized for smooth rendering)
+        this.renderer = new THREE.WebGLRenderer({ 
+            antialias: true,
+            alpha: false,
+            depth: true,
+            logarithmicDepthBuffer: false,
+            precision: 'highp'
+        });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.renderer.sortObjects = true; // Enable proper depth sorting
+        this.renderer.autoClear = true;
+        this.renderer.autoClearColor = true;
+        this.renderer.autoClearDepth = true;
+        this.renderer.autoClearStencil = true;
         document.getElementById('canvas-container').appendChild(this.renderer.domElement);
         
-        // Controls
+        // Controls (constrained to prevent clipping)
         this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
         this.controls.enableDamping = true;
-        this.controls.dampingFactor = 0.05;
-        this.controls.minDistance = 5;
-        this.controls.maxDistance = 20;
-        this.controls.maxPolarAngle = Math.PI / 2;
+        this.controls.dampingFactor = 0.08;
+        this.controls.minDistance = 6;  // Increased from 5 to prevent getting too close
+        this.controls.maxDistance = 18; // Reduced from 20 for tighter framing
+        this.controls.maxPolarAngle = Math.PI / 2.2; // Prevent going below ground
+        this.controls.minPolarAngle = Math.PI / 8; // Prevent looking straight down
+        this.controls.target.set(0, 1, 0); // Look at character height, not ground
+        this.controls.enablePan = false; // Disable panning to keep scene centered
         
         // Handle window resize
         window.addEventListener('resize', () => this.onWindowResize(), false);
@@ -255,29 +269,36 @@ class MosesKhidrGame {
         this.moses = CharacterFactory.createMoses();
         this.khidr = CharacterFactory.createKhidr();
         
-        // Position based on environment
+        // Position based on environment (y=0.1 to ensure above ground plane at y=-0.5)
         switch(environment) {
             case 'boat':
-                this.moses.position.set(-0.5, 0.5, 0);
-                this.khidr.position.set(0.5, 0.5, 0);
+                this.moses.position.set(-0.6, 0.65, 0.3);  // On boat deck
+                this.khidr.position.set(0.6, 0.65, -0.3);
+                this.moses.rotation.y = Math.PI / 6;
+                this.khidr.rotation.y = -Math.PI / 6;
                 break;
             case 'village':
-                this.moses.position.set(-1.5, 0, 2);
-                this.khidr.position.set(1.5, 0, 2);
+                this.moses.position.set(-2, 0.1, 2.5);
+                this.khidr.position.set(1.5, 0.1, 2);
+                this.moses.rotation.y = -Math.PI / 4;
+                this.khidr.rotation.y = Math.PI / 3;
                 // Add a boy character
                 const boy = CharacterFactory.createSimpleCharacter(0x6ba3d4, 0.6);
-                boy.position.set(0, 0, -2);
+                boy.position.set(0.5, 0.1, -2.5);
                 this.scene.add(boy);
                 this.scene.userData.boy = boy;
                 break;
             case 'town':
-                this.moses.position.set(-1, 0, 0);
-                this.khidr.position.set(1, 0, 0);
+                this.moses.position.set(-1.5, 0.1, 1);
+                this.khidr.position.set(1.2, 0.1, -0.5);
+                this.moses.rotation.y = Math.PI / 8;
+                this.khidr.rotation.y = -Math.PI / 8;
                 break;
             default: // meeting
-                this.moses.position.set(-2, 0, 0);
-                this.khidr.position.set(2, 0, 0);
-                this.khidr.rotation.y = Math.PI;
+                this.moses.position.set(-2.5, 0.1, 0.5);
+                this.khidr.position.set(2.5, 0.1, -0.5);
+                this.moses.rotation.y = Math.PI / 6;
+                this.khidr.rotation.y = Math.PI + Math.PI / 6;
         }
         
         this.scene.add(this.moses);
@@ -285,26 +306,37 @@ class MosesKhidrGame {
     }
     
     setCameraForScene(sceneId) {
-        let targetPos = { x: 0, y: 5, z: 10 };
+        let targetPos = { x: 0, y: 4.5, z: 9 };
+        let targetLookAt = { x: 0, y: 1, z: 0 };
         
         if (sceneId.includes('boat')) {
-            targetPos = { x: 0, y: 3, z: 8 };
+            targetPos = { x: 1, y: 3.5, z: 7 };
+            targetLookAt = { x: 0, y: 1, z: 0 };
         } else if (sceneId.includes('village') || sceneId.includes('boy')) {
-            targetPos = { x: 0, y: 4, z: 10 };
+            targetPos = { x: -1, y: 4, z: 9 };
+            targetLookAt = { x: 0, y: 1.2, z: 0 };
         } else if (sceneId.includes('town') || sceneId.includes('wall')) {
-            targetPos = { x: -5, y: 5, z: 8 };
+            targetPos = { x: -4, y: 4.5, z: 7 };
+            targetLookAt = { x: -2, y: 1.5, z: -2 };
         }
         
         // Smooth camera transition
-        this.smoothCameraMove(targetPos);
+        this.smoothCameraMove(targetPos, targetLookAt);
     }
     
-    smoothCameraMove(targetPos, duration = 1000) {
+    smoothCameraMove(targetPos, targetLookAt = null, duration = 1200) {
         const startPos = {
             x: this.camera.position.x,
             y: this.camera.position.y,
             z: this.camera.position.z
         };
+        
+        const startLookAt = {
+            x: this.controls.target.x,
+            y: this.controls.target.y,
+            z: this.controls.target.z
+        };
+        
         const startTime = Date.now();
         
         const animate = () => {
@@ -312,9 +344,17 @@ class MosesKhidrGame {
             const progress = Math.min(elapsed / duration, 1);
             const eased = this.easeInOutQuad(progress);
             
+            // Move camera
             this.camera.position.x = startPos.x + (targetPos.x - startPos.x) * eased;
             this.camera.position.y = startPos.y + (targetPos.y - startPos.y) * eased;
             this.camera.position.z = startPos.z + (targetPos.z - startPos.z) * eased;
+            
+            // Update lookAt target if provided
+            if (targetLookAt) {
+                this.controls.target.x = startLookAt.x + (targetLookAt.x - startLookAt.x) * eased;
+                this.controls.target.y = startLookAt.y + (targetLookAt.y - startLookAt.y) * eased;
+                this.controls.target.z = startLookAt.z + (targetLookAt.z - startLookAt.z) * eased;
+            }
             
             if (progress < 1) {
                 requestAnimationFrame(animate);
@@ -416,11 +456,11 @@ class MosesKhidrGame {
             CharacterFactory.animateIdle(this.khidr, this.animationTime + 0.5);
         }
         
-        // Animate boat bobbing
+        // Animate boat bobbing (gentle)
         const boat = this.scene.userData.boat;
         if (boat) {
-            boat.position.y = Math.sin(this.animationTime * 0.5) * 0.1;
-            boat.rotation.z = Math.sin(this.animationTime * 0.3) * 0.02;
+            boat.position.y = Math.sin(this.animationTime * 0.4) * 0.06;  // Reduced amplitude
+            boat.rotation.z = Math.sin(this.animationTime * 0.25) * 0.015; // Smoother rotation
         }
         
         // Animate water

@@ -66,15 +66,15 @@ class EnvironmentFactory {
         bow.position.set(2.2, 0.3, 0);
         boat.add(bow);
         
-        // Deck planks
-        const plankGeometry = new THREE.BoxGeometry(3.0, 0.1, 0.3);
+        // Deck planks (raised to prevent z-fighting)
+        const plankGeometry = new THREE.BoxGeometry(3.0, 0.08, 0.3);
         const plankMaterial = new THREE.MeshLambertMaterial({ 
             color: 0x6B5A4A,
             flatShading: true
         });
         for (let i = -2; i <= 2; i++) {
             const plank = new THREE.Mesh(plankGeometry, plankMaterial);
-            plank.position.set(0, 0.65, i * 0.4);
+            plank.position.set(0, 0.68, i * 0.4);  // Raised from 0.65 to 0.68
             boat.add(plank);
         }
         
@@ -159,7 +159,7 @@ class EnvironmentFactory {
             houses.push(house);
         });
         
-        // Village square (packed earth)
+        // Village square (packed earth - raised to prevent z-fighting)
         const squareGeometry = new THREE.PlaneGeometry(9, 9);
         const squareMaterial = new THREE.MeshLambertMaterial({ 
             color: 0xB89970,
@@ -167,7 +167,7 @@ class EnvironmentFactory {
         });
         const square = new THREE.Mesh(squareGeometry, squareMaterial);
         square.rotation.x = -Math.PI / 2;
-        square.position.y = -0.48;
+        square.position.y = -0.45;  // Raised from -0.48 to -0.45
         scene.add(square);
         
         // Palm trees
@@ -223,7 +223,7 @@ class EnvironmentFactory {
         scene.add(wall);
         scene.userData.wall = wall;
         
-        // Stone path
+        // Stone path (raised to prevent z-fighting)
         const pathGeometry = new THREE.PlaneGeometry(45, 3.5);
         const pathMaterial = new THREE.MeshLambertMaterial({ 
             color: 0xA89880,
@@ -231,7 +231,7 @@ class EnvironmentFactory {
         });
         const path = new THREE.Mesh(pathGeometry, pathMaterial);
         path.rotation.x = -Math.PI / 2;
-        path.position.y = -0.48;
+        path.position.y = -0.45;  // Raised from -0.48 to -0.45
         scene.add(path);
         
         // Sky - warm evening
