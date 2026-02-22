@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surah Al-Kahf: Interactive Journey</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background canvas for subtle animation -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Main container -->
+    <div id="app">
+        <!-- Title Screen -->
+        <section id="title-screen" class="screen active">
+            <div class="content-wrapper">
+                <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                <h1 class="arabic-title">سُورَةُ الْكَهْف</h1>
+                <h2 class="english-title">Surah Al-Kahf</h2>
+                <p class="subtitle">An Interactive Journey Through Four Sacred Stories</p>
+                <div class="divider">✦ ✦ ✦</div>
+                <button id="begin-journey" class="primary-btn">Begin Journey</button>
+                <button id="view-disclaimer" class="secondary-btn">View Educational Disclaimer</button>
+            </div>
+        </section>
+        
+        <!-- Introduction Screen (Verses 1-8) -->
+        <section id="introduction-screen" class="screen">
+            <div class="content-wrapper quran-text-screen">
+                <h2 class="screen-title">Opening of Surah Al-Kahf</h2>
+                
+                <div class="quran-verse-block">
+                    <p class="arabic-text">ٱلْحَمْدُ لِلَّهِ ٱلَّذِىٓ أَنزَلَ عَلَىٰ عَبْدِهِ ٱلْكِتَـٰبَ وَلَمْ يَجْعَل لَّهُۥ عِوَجَا</p>
+                    <p class="translation">[All] praise is [due] to Allah, who has sent down upon His Servant [Muhammad] the Book and has not made therein any deviance.</p>
+                    <p class="citation">— Surah Al-Kahf 18:1</p>
+                </div>
+                
+                <div class="quran-verse-block">
+                    <p class="arabic-text">قَيِّمًۭا لِّيُنذِرَ بَأْسًۭا شَدِيدًۭا مِّن لَّدُنْهُ وَيُبَشِّرَ ٱلْمُؤْمِنِينَ ٱلَّذِينَ يَعْمَلُونَ ٱلصَّـٰلِحَـٰتِ أَنَّ لَهُمْ أَجْرًا حَسَنًۭا</p>
+                    <p class="translation">[He has made it] straight, to warn of severe punishment from Him and to give good tidings to the believers who do righteous deeds that they will have a good reward [i.e., Paradise].</p>
+                    <p class="citation">— Surah Al-Kahf 18:2</p>
+                </div>
+                
+                <div class="prose-text">
+                    <p>Surah Al-Kahf contains four profound stories, each carrying timeless lessons:</p>
+                    <ul>
+                        <li><strong>The People of the Cave</strong> — Faith and divine protection</li>
+                        <li><strong>The Owner of Two Gardens</strong> — Gratitude versus arrogance</li>
+                        <li><strong>Musa and Al-Khidr</strong> — Patience and divine knowledge</li>
+                        <li><strong>Dhul-Qarnayn</strong> — Just leadership and responsibility</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-style: italic;">Prophet Muhammad ﷺ said: "Whoever memorizes ten verses from the beginning of Surah Al-Kahf will be protected from the Dajjal."</p>
+                </div>
+                
+                <button class="primary-btn continue-btn" data-next="chapter-select">Continue</button>
+            </div>
+        </section>
+        
+        <!-- Chapter Selection -->
+        <section id="chapter-select-screen" class="screen">
+            <div class="content-wrapper">
+                <h2 class="screen-title">Choose Your Chapter</h2>
+                <p class="subtitle">Each story carries wisdom. Start from the beginning or choose a chapter.</p>
+                
+                <div class="chapter-grid">
+                    <div class="chapter-card" data-chapter="1">
+                        <div class="chapter-number">Chapter 1</div>
+                        <h3 class="chapter-title-ar">أَصْحَـٰبُ ٱلْكَهْفِ</h3>
+                        <h3 class="chapter-title">The People of the Cave</h3>
+                        <p class="chapter-desc">Young believers flee persecution and are granted divine protection through centuries of sleep.</p>
+                        <div class="chapter-verses">Verses 18:9-26</div>
+                        <div class="chapter-lesson">Lesson: <strong>Faith & Divine Protection</strong></div>
+                        <button class="chapter-btn" data-chapter="1">Begin Chapter 1</button>
+                    </div>
+                    
+                    <div class="chapter-card" data-chapter="2">
+                        <div class="chapter-number">Chapter 2</div>
+                        <h3 class="chapter-title-ar">صَاحِبُ ٱلْجَنَّتَيْنِ</h3>
+                        <h3 class="chapter-title">The Two Gardens</h3>
+                        <p class="chapter-desc">A wealthy man boasts of his prosperity and forgets his Creator, only to lose everything.</p>
+                        <div class="chapter-verses">Verses 18:32-44</div>
+                        <div class="chapter-lesson">Lesson: <strong>Gratitude vs. Arrogance</strong></div>
+                        <button class="chapter-btn" data-chapter="2">Begin Chapter 2</button>
+                    </div>
+                    
+                    <div class="chapter-card" data-chapter="3">
+                        <div class="chapter-number">Chapter 3</div>
+                        <h3 class="chapter-title-ar">مُوسَىٰ وَٱلْخَضِرُ</h3>
+                        <h3 class="chapter-title">Musa & Al-Khidr</h3>
+                        <p class="chapter-desc">Prophet Musa seeks knowledge from Al-Khidr and learns the limits of human understanding.</p>
+                        <div class="chapter-verses">Verses 18:60-82</div>
+                        <div class="chapter-lesson">Lesson: <strong>Patience & Divine Knowledge</strong></div>
+                        <button class="chapter-btn" data-chapter="3">Begin Chapter 3</button>
+                    </div>
+                    
+                    <div class="chapter-card" data-chapter="4">
+                        <div class="chapter-number">Chapter 4</div>
+                        <h3 class="chapter-title-ar">ذُو ٱلْقَرْنَيْنِ</h3>
+                        <h3 class="chapter-title">Dhul-Qarnayn</h3>
+                        <p class="chapter-desc">A righteous king travels the world, establishes justice, and protects the weak from Gog and Magog.</p>
+                        <div class="chapter-verses">Verses 18:83-98</div>
+                        <div class="chapter-lesson">Lesson: <strong>Just Leadership</strong></div>
+                        <button class="chapter-btn" data-chapter="4">Begin Chapter 4</button>
+                    </div>
+                </div>
+                
+                <div class="wisdom-tracker">
+                    <div class="tracker-label">Journey Progress</div>
+                    <div class="tracker-bars">
+                        <div class="tracker-item">
+                            <span>Chapter 1</span>
+                            <div class="tracker-bar"><div class="tracker-fill" id="progress-1"></div></div>
+                        </div>
+                        <div class="tracker-item">
+                            <span>Chapter 2</span>
+                            <div class="tracker-bar"><div class="tracker-fill" id="progress-2"></div></div>
+                        </div>
+                        <div class="tracker-item">
+                            <span>Chapter 3</span>
+                            <div class="tracker-bar"><div class="tracker-fill" id="progress-3"></div></div>
+                        </div>
+                        <div class="tracker-item">
+                            <span>Chapter 4</span>
+                            <div class="tracker-bar"><div class="tracker-fill" id="progress-4"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Conclusion Screen -->
+        <section id="conclusion-screen" class="screen">
+            <div class="content-wrapper quran-text-screen">
+                <h2 class="screen-title">Conclusion of Surah Al-Kahf</h2>
+                
+                <div class="quran-verse-block">
+                    <p class="arabic-text">قُلْ إِنَّمَآ أَنَا۠ بَشَرٌۭ مِّثْلُكُمْ يُوحَىٰٓ إِلَىَّ أَنَّمَآ إِلَـٰهُكُمْ إِلَـٰهٌۭ وَٰحِدٌۭ ۖ فَمَن كَانَ يَرْجُوا۟ لِقَآءَ رَبِّهِۦ فَلْيَعْمَلْ عَمَلًۭا صَـٰلِحًۭا وَلَا يُشْرِكْ بِعِبَادَةِ رَبِّهِۦٓ أَحَدًۢا</p>
+                    <p class="translation">Say, "I am only a man like you, to whom has been revealed that your god is one God. So whoever would hope for the meeting with his Lord - let him do righteous work and not associate in the worship of his Lord anyone."</p>
+                    <p class="citation">— Surah Al-Kahf 18:110</p>
+                </div>
+                
+                <div class="prose-text">
+                    <h3>Lessons From Surah Al-Kahf</h3>
+                    <ul>
+                        <li><strong>Faith withstands all trials</strong> — The cave sleepers chose truth over comfort</li>
+                        <li><strong>Wealth without gratitude is ruin</strong> — The garden owner forgot his Creator</li>
+                        <li><strong>Divine wisdom surpasses human reason</strong> — Musa learned patience through Al-Khidr</li>
+                        <li><strong>Power demands justice</strong> — Dhul-Qarnayn protected the weak</li>
+                    </ul>
+                    
+                    <p style="margin-top: 25px; font-style: italic;">"Whoever reads Surah Al-Kahf on Friday, light will shine for him between the two Fridays." — Prophet Muhammad ﷺ</p>
+                </div>
+                
+                <div class="final-encouragement">
+                    <h3>Continue Your Journey</h3>
+                    <p>This interactive experience is a humble introduction. The true depth lies in the Quran itself.</p>
+                    <p>Read Surah Al-Kahf every Friday. Reflect on its wisdom. Share it with others.</p>
+                </div>
+                
+                <div class="button-group">
+                    <button class="primary-btn" onclick="window.location.href='index.html';">Return to Start</button>
+                    <button class="secondary-btn" onclick="window.open('https://quran.com/18', '_blank');">Read Full Surah</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Audio Manager (hidden) -->
+    <div id="audio-controls" class="audio-controls">
+        <button id="toggle-recitation" class="audio-btn" title="Toggle Quran Recitation">
+            <span class="icon">🔊</span>
+        </button>
+        <button id="toggle-ambience" class="audio-btn" title="Toggle Ambient Sounds">
+            <span class="icon">🎵</span>
+        </button>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="shared/audio-manager.js"></script>
+    <script src="launcher.js"></script>
+</body>
+</html>
