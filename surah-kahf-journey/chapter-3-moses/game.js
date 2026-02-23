@@ -15,10 +15,6 @@ class MosesKhidrGame {
         this.khidr = null; // Abstract silhouette only
         this.currentEnvironment = null;
         
-        // Audio
-        this.ambientAudio = null;
-        this.audioEnabled = false;
-        
         // Progress tracking
         this.sceneHistory = [];
         this.totalScenes = Object.keys(SCENES || {}).length;
@@ -143,9 +139,6 @@ class MosesKhidrGame {
             this.camera.rotation.y = sceneData.cameraRotation.y || 0;
             this.camera.rotation.x = sceneData.cameraRotation.x || 0;
         }
-        
-        // Update ambient audio based on environment
-        this.updateAmbientAudio(sceneData.environment);
     }
     
     updateEnvironment(envType) {
@@ -281,39 +274,6 @@ class MosesKhidrGame {
         
         const uniqueScenes = new Set(this.sceneHistory).size;
         progressDiv.textContent = `Scene ${uniqueScenes} / ${this.totalScenes}`;
-    }
-    
-    updateAmbientAudio(environment) {
-        // Audio URLs (can be added later)
-        const audioMap = {
-            shore: 'audio/waves.mp3',
-            boat: 'audio/water-boat.mp3',
-            village: 'audio/village.mp3',
-            town: 'audio/town.mp3'
-        };
-        
-        const audioUrl = audioMap[environment];
-        if (!audioUrl || !this.audioEnabled) return;
-        
-        // Stop current audio
-        if (this.ambientAudio) {
-            this.ambientAudio.pause();
-            this.ambientAudio = null;
-        }
-        
-        // Try to play new audio (fail silently if missing)
-        this.ambientAudio = new Audio(audioUrl);
-        this.ambientAudio.loop = true;
-        this.ambientAudio.volume = 0.3;
-        this.ambientAudio.play().catch(() => {
-            // Audio file not found - that's okay
-            console.log('Audio not available:', audioUrl);
-        });
-    }
-    
-    enableAudio() {
-        this.audioEnabled = true;
-        this.updateAmbientAudio(this.currentEnvironment);
     }
     
     animate() {

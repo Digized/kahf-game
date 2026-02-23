@@ -289,7 +289,13 @@
     <!-- UI Overlay -->
     <div id="ui-overlay">
         <button id="return-btn">← Return to Menu</button>
-        <button id="audio-toggle" style="position: absolute; top: 30px; right: 260px; padding: 12px 20px; background: rgba(212, 175, 55, 0.2); border: 2px solid #d4af37; color: #ffd700; border-radius: 8px; cursor: pointer; font-family: 'Crimson Text', serif; font-weight: 600; pointer-events: all; transition: all 0.3s ease;" onclick="game.enableAudio(); this.style.display='none';">🔊 Enable Audio</button>
+        
+        <!-- Audio Controls -->
+        <div style="position: absolute; top: 30px; right: 260px; display: flex; gap: 10px;">
+            <button id="toggle-recitation" class="audio-btn" style="padding: 12px 20px; background: rgba(212, 175, 55, 0.2); border: 2px solid #d4af37; color: #ffd700; border-radius: 8px; cursor: pointer; font-family: 'Crimson Text', serif; font-weight: 600; pointer-events: all; transition: all 0.3s ease;">
+                <span class="icon">🔇</span> Quran
+            </button>
+        </div>
         
         <div id="verse-display">
             <div class="verse-ref">Surah Al-Kahf 18:60-82</div>
@@ -315,10 +321,27 @@
     <!-- Three.js -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
     
+    <!-- Audio Manager -->
+    <script src="../shared/audio-manager.js"></script>
+    
     <!-- Game Scripts -->
     <script src="environments.js"></script>
     <script src="characters.js"></script>
     <script src="scenes.js"></script>
     <script src="game.js"></script>
+    
+    <script>
+        // Start Quran recitation when audio is enabled
+        window.addEventListener('DOMContentLoaded', () => {
+            const recitationBtn = document.getElementById('toggle-recitation');
+            if (recitationBtn) {
+                recitationBtn.addEventListener('click', () => {
+                    if (window.audioManager && window.audioManager.recitationEnabled) {
+                        window.audioManager.playRecitation('moses');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
