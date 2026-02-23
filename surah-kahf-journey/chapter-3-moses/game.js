@@ -15,6 +15,14 @@ class MosesKhidrGame {
         this.khidr = null; // Abstract silhouette only
         this.currentEnvironment = null;
         
+        // Audio
+        this.ambientAudio = null;
+        this.audioEnabled = false;
+        
+        // Progress tracking
+        this.sceneHistory = [];
+        this.totalScenes = Object.keys(SCENES || {}).length;
+        
         this.init();
     }
     
@@ -62,7 +70,7 @@ class MosesKhidrGame {
     }
     
     setupFirstPersonView() {
-        // Subtle head movement with mouse
+        // First-person look controls
         let mouseX = 0;
         let mouseY = 0;
         
@@ -70,9 +78,9 @@ class MosesKhidrGame {
             mouseX = (e.clientX / window.innerWidth) * 2 - 1;
             mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
             
-            // Subtle camera rotation (limited range)
-            this.camera.rotation.y = mouseX * 0.3;
-            this.camera.rotation.x = mouseY * 0.2;
+            // Full 360° horizontal, limited vertical
+            this.camera.rotation.y = mouseX * Math.PI;
+            this.camera.rotation.x = mouseY * 0.4;
         });
     }
     
@@ -110,6 +118,8 @@ class MosesKhidrGame {
         }
         
         this.currentSceneId = sceneId;
+        this.sceneHistory.push(sceneId);
+        this.updateProgressDisplay();
         
         // Update environment
         this.updateEnvironment(sceneData.environment);
@@ -133,6 +143,9 @@ class MosesKhidrGame {
             this.camera.rotation.y = sceneData.cameraRotation.y || 0;
             this.camera.rotation.x = sceneData.cameraRotation.x || 0;
         }
+        
+        // Update ambient audio based on environment
+        this.updateAmbientAudio(sceneData.environment);
     }
     
     updateEnvironment(envType) {
@@ -145,23 +158,29 @@ class MosesKhidrGame {
         switch (envType) {
             case 'shore':
                 EnvironmentFactory.createShore(this.scene);
+                // Khidr appears when meeting
+                if (this.currentSceneId === 'meeting') {
+                    this.khidr = CharacterFactory.createKhidr();
+                    this.khidr.position.set(0, 0, -3); // Directly in front
+                    this.scene.add(this.khidr);
+                }
                 break;
             case 'boat':
                 EnvironmentFactory.createBoatScene(this.scene);
                 this.khidr = CharacterFactory.createKhidr();
-                this.khidr.position.set(2, 0.5, -1);
+                this.khidr.position.set(-1.5, 0.5, -2); // Front-left on boat
                 this.scene.add(this.khidr);
                 break;
             case 'village':
                 EnvironmentFactory.createVillage(this.scene);
                 this.khidr = CharacterFactory.createKhidr();
-                this.khidr.position.set(3, 0, -2);
+                this.khidr.position.set(-1, 0, -2.5); // Slightly left, in front
                 this.scene.add(this.khidr);
                 break;
             case 'town':
                 EnvironmentFactory.createTown(this.scene);
                 this.khidr = CharacterFactory.createKhidr();
-                this.khidr.position.set(4, 0, -3);
+                this.khidr.position.set(1, 0, -3); // Slightly right, in front
                 this.scene.add(this.khidr);
                 break;
         }
@@ -248,6 +267,55 @@ class MosesKhidrGame {
         verseText.textContent = verse.text;
     }
     
+    updateProgressDisplay() {
+        // Add progress indicator to patience meter
+        const patienceMeter = document.getElementById('patience-meter');
+        let progressDiv = document.getElementById('scene-progress');
+        
+        if (!progressDiv) {
+            progressDiv = document.createElement('div');
+            progressDiv.id = 'scene-progress';
+            progressDiv.style.cssText = 'margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(212,175,55,0.3); text-align: center; color: #888; font-size: 0.9rem;';
+            patienceMeter.appendChild(progressDiv);
+        }
+        
+        const uniqueScenes = new Set(this.sceneHistory).size;
+        progressDiv.textContent = `Scene ${uniqueScenes} / ${this.totalScenes}`;
+    }
+    
+    updateAmbientAudio(environment) {
+        // Audio URLs (can be added later)
+        const audioMap = {
+            shore: 'audio/waves.mp3',
+            boat: 'audio/water-boat.mp3',
+            village: 'audio/village.mp3',
+            town: 'audio/town.mp3'
+        };
+        
+        const audioUrl = audioMap[environment];
+        if (!audioUrl || !this.audioEnabled) return;
+        
+        // Stop current audio
+        if (this.ambientAudio) {
+            this.ambientAudio.pause();
+            this.ambientAudio = null;
+        }
+        
+        // Try to play new audio (fail silently if missing)
+        this.ambientAudio = new Audio(audioUrl);
+        this.ambientAudio.loop = true;
+        this.ambientAudio.volume = 0.3;
+        this.ambientAudio.play().catch(() => {
+            // Audio file not found - that's okay
+            console.log('Audio not available:', audioUrl);
+        });
+    }
+    
+    enableAudio() {
+        this.audioEnabled = true;
+        this.updateAmbientAudio(this.currentEnvironment);
+    }
+    
     animate() {
         requestAnimationFrame(() => this.animate());
         
@@ -272,6 +340,7 @@ class MosesKhidrGame {
 }
 
 // Start game when page loads
+let game;
 window.addEventListener('DOMContentLoaded', () => {
-    new MosesKhidrGame();
+    game = new MosesKhidrGame();
 });
