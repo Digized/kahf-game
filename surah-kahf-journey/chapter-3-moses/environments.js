@@ -18,9 +18,19 @@ class EnvironmentFactory {
         scene.background = new THREE.Color(0x87ceeb);
         scene.fog = new THREE.Fog(0x87ceeb, 20, 60);
         
-        // Ground (sand)
-        const groundGeometry = new THREE.PlaneGeometry(100, 100);
-        const groundMaterial = new THREE.MeshLambertMaterial({ color: 0xc2b280 });
+        // Ground (sand with texture variation)
+        const groundGeometry = new THREE.PlaneGeometry(100, 100, 20, 20);
+        const positions = groundGeometry.attributes.position;
+        for (let i = 0; i < positions.count; i++) {
+            positions.setZ(i, Math.random() * 0.3 - 0.15);
+        }
+        groundGeometry.computeVertexNormals();
+        
+        const groundMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0xc2b280,
+            roughness: 0.95,
+            metalness: 0.05
+        });
         const ground = new THREE.Mesh(groundGeometry, groundMaterial);
         ground.rotation.x = -Math.PI / 2;
         ground.position.y = 0;
@@ -28,12 +38,23 @@ class EnvironmentFactory {
         ground.userData.environment = true;
         scene.add(ground);
         
-        // Water (ocean)
-        const waterGeometry = new THREE.PlaneGeometry(100, 50);
-        const waterMaterial = new THREE.MeshLambertMaterial({ 
+        // Water (ocean) with waves
+        const waterGeometry = new THREE.PlaneGeometry(100, 50, 30, 20);
+        const waterPositions = waterGeometry.attributes.position;
+        for (let i = 0; i < waterPositions.count; i++) {
+            const x = waterPositions.getX(i);
+            const y = waterPositions.getY(i);
+            const wave = Math.sin(x * 0.1) * Math.cos(y * 0.1) * 0.4;
+            waterPositions.setZ(i, wave);
+        }
+        waterGeometry.computeVertexNormals();
+        
+        const waterMaterial = new THREE.MeshStandardMaterial({ 
             color: 0x1e5a8e,
             transparent: true,
-            opacity: 0.8
+            opacity: 0.8,
+            roughness: 0.3,
+            metalness: 0.2
         });
         const water = new THREE.Mesh(waterGeometry, waterMaterial);
         water.rotation.x = -Math.PI / 2;
@@ -42,40 +63,69 @@ class EnvironmentFactory {
         water.userData.isWater = true;
         scene.add(water);
         
-        // Rocks scattered on shore
-        for (let i = 0; i < 15; i++) {
-            const rockSize = Math.random() * 0.5 + 0.3;
-            const rockGeometry = new THREE.DodecahedronGeometry(rockSize, 0);
-            const rockMaterial = new THREE.MeshLambertMaterial({ 
-                color: 0x6b5a4a,
-                flatShading: true
-            });
+        // Larger, more varied rocks
+        const rockMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0x6b5a4a,
+            roughness: 0.9,
+            metalness: 0.1
+        });
+        
+        for (let i = 0; i < 20; i++) {
+            const rockSize = Math.random() * 0.8 + 0.4;
+            const rockGeometry = new THREE.DodecahedronGeometry(rockSize, Math.random() > 0.5 ? 1 : 0);
             const rock = new THREE.Mesh(rockGeometry, rockMaterial);
             rock.position.set(
-                (Math.random() - 0.5) * 30,
-                rockSize * 0.3,
-                (Math.random() - 0.5) * 15
+                (Math.random() - 0.5) * 35,
+                rockSize * 0.4,
+                (Math.random() - 0.5) * 20
             );
             rock.rotation.set(
                 Math.random() * Math.PI,
                 Math.random() * Math.PI,
                 Math.random() * Math.PI
             );
+            rock.scale.set(
+                1 + Math.random() * 0.5,
+                0.5 + Math.random() * 0.5,
+                1 + Math.random() * 0.5
+            );
             rock.castShadow = true;
             rock.userData.environment = true;
             scene.add(rock);
         }
         
-        // Palm trees
-        for (let i = 0; i < 5; i++) {
+        // Palm trees with more detail
+        for (let i = 0; i < 8; i++) {
             const palm = this.createPalmTree();
             palm.position.set(
-                (Math.random() - 0.5) * 40,
+                (Math.random() - 0.5) * 45,
                 0,
-                Math.random() * 10 + 5
+                Math.random() * 15 + 5
             );
+            palm.rotation.y = Math.random() * Math.PI * 2;
+            palm.castShadow = true;
             palm.userData.environment = true;
             scene.add(palm);
+        }
+        
+        // Add some driftwood
+        for (let i = 0; i < 5; i++) {
+            const logGeometry = new THREE.CylinderGeometry(0.15, 0.2, 2 + Math.random() * 2, 8);
+            const logMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x5d4e37,
+                roughness: 0.85
+            });
+            const log = new THREE.Mesh(logGeometry, logMaterial);
+            log.rotation.z = Math.PI / 2;
+            log.rotation.y = Math.random() * Math.PI;
+            log.position.set(
+                (Math.random() - 0.5) * 25,
+                0.2,
+                (Math.random() - 0.5) * 10
+            );
+            log.castShadow = true;
+            log.userData.environment = true;
+            scene.add(log);
         }
     }
     
@@ -84,13 +134,26 @@ class EnvironmentFactory {
         scene.background = new THREE.Color(0x87ceeb);
         scene.fog = new THREE.Fog(0x87ceeb, 15, 50);
         
-        // Ocean (all around)
-        const waterGeometry = new THREE.PlaneGeometry(200, 200);
-        const waterMaterial = new THREE.MeshLambertMaterial({ 
+        // Ocean (all around) - improved with animated waves
+        const waterGeometry = new THREE.PlaneGeometry(200, 200, 50, 50);
+        const waterMaterial = new THREE.MeshStandardMaterial({ 
             color: 0x1e5a8e,
             transparent: true,
-            opacity: 0.9
+            opacity: 0.85,
+            roughness: 0.4,
+            metalness: 0.1
         });
+        
+        // Add wave-like displacement
+        const positions = waterGeometry.attributes.position;
+        for (let i = 0; i < positions.count; i++) {
+            const x = positions.getX(i);
+            const y = positions.getY(i);
+            const wave = Math.sin(x * 0.1) * Math.cos(y * 0.1) * 0.3;
+            positions.setZ(i, wave);
+        }
+        waterGeometry.computeVertexNormals();
+        
         const water = new THREE.Mesh(waterGeometry, waterMaterial);
         water.rotation.x = -Math.PI / 2;
         water.position.y = 0;
@@ -98,55 +161,21 @@ class EnvironmentFactory {
         water.userData.isWater = true;
         scene.add(water);
         
-        // Simple boat (wooden planks)
-        const boat = new THREE.Group();
-        
-        // Hull
-        const hullGeometry = new THREE.BoxGeometry(5, 0.8, 2.5);
-        const woodMaterial = new THREE.MeshLambertMaterial({ 
-            color: 0x5d4e37,
-            flatShading: true
-        });
-        const hull = new THREE.Mesh(hullGeometry, woodMaterial);
-        hull.position.y = 0.4;
-        boat.add(hull);
-        
-        // Deck
-        const deckGeometry = new THREE.BoxGeometry(4.5, 0.15, 2.2);
-        const deck = new THREE.Mesh(deckGeometry, woodMaterial);
-        deck.position.y = 0.85;
-        boat.add(deck);
-        
-        // Side planks
-        const plankGeometry = new THREE.BoxGeometry(5, 0.5, 0.1);
-        const leftPlank = new THREE.Mesh(plankGeometry, woodMaterial);
-        leftPlank.position.set(0, 0.6, 1.25);
-        boat.add(leftPlank);
-        
-        const rightPlank = leftPlank.clone();
-        rightPlank.position.z = -1.25;
-        boat.add(rightPlank);
-        
-        // Mast
-        const mastGeometry = new THREE.CylinderGeometry(0.1, 0.12, 4, 8);
-        const mast = new THREE.Mesh(mastGeometry, woodMaterial);
-        mast.position.set(0, 3, 0);
-        boat.add(mast);
-        
-        // Simple sail
-        const sailGeometry = new THREE.PlaneGeometry(3, 2.5);
-        const sailMaterial = new THREE.MeshLambertMaterial({ 
-            color: 0xf5f5dc,
-            side: THREE.DoubleSide
-        });
-        const sail = new THREE.Mesh(sailGeometry, sailMaterial);
-        sail.position.set(0, 3, 0.2);
-        boat.add(sail);
-        
-        boat.position.y = 0.5;
+        // Use improved boat model
+        const boat = ImprovedBoat.create();
         boat.userData.environment = true;
-        boat.userData.isBoat = true;
         scene.add(boat);
+        
+        // Distant shoreline
+        const shoreGeometry = new THREE.BoxGeometry(100, 3, 10);
+        const shoreMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0xa0826d,
+            roughness: 0.9
+        });
+        const shore = new THREE.Mesh(shoreGeometry, shoreMaterial);
+        shore.position.set(0, 1, -40);
+        shore.userData.environment = true;
+        scene.add(shore);
     }
     
     // Create village
@@ -338,15 +367,27 @@ class EnvironmentFactory {
         return building;
     }
     
-    // Animate water
+    // Animate water and environment elements
     static animateEnvironment(scene, time) {
         scene.traverse((child) => {
-            if (child.userData && child.userData.isWater) {
-                child.position.y = Math.sin(time * 0.5) * 0.1;
+            // Animated water surface
+            if (child.userData && child.userData.isWater && child.geometry) {
+                const positions = child.geometry.attributes.position;
+                if (positions) {
+                    for (let i = 0; i < positions.count; i++) {
+                        const x = positions.getX(i);
+                        const y = positions.getY(i);
+                        const wave = Math.sin(x * 0.1 + time) * Math.cos(y * 0.1 + time * 0.7) * 0.3;
+                        positions.setZ(i, wave);
+                    }
+                    positions.needsUpdate = true;
+                    child.geometry.computeVertexNormals();
+                }
             }
+            
+            // Animated boat
             if (child.userData && child.userData.isBoat) {
-                child.position.y = 0.5 + Math.sin(time * 0.4) * 0.15;
-                child.rotation.z = Math.sin(time * 0.3) * 0.05;
+                ImprovedBoat.animate(child, time);
             }
         });
     }

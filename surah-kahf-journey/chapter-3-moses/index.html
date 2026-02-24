@@ -325,19 +325,36 @@
     <script src="../shared/audio-manager.js"></script>
     
     <!-- Game Scripts -->
+    <script src="improved-boat.js"></script>
     <script src="environments.js"></script>
     <script src="characters.js"></script>
     <script src="scenes.js"></script>
     <script src="game.js"></script>
     
     <script>
-        // Start Quran recitation when audio is enabled
+        // Handle audio toggle manually (audioManager might not initialize properly)
+        let quranAudio = null;
+        
         window.addEventListener('DOMContentLoaded', () => {
             const recitationBtn = document.getElementById('toggle-recitation');
             if (recitationBtn) {
                 recitationBtn.addEventListener('click', () => {
-                    if (window.audioManager && window.audioManager.recitationEnabled) {
-                        window.audioManager.playRecitation('moses');
+                    if (!quranAudio) {
+                        // Create audio element on first click
+                        quranAudio = new Audio('../shared/quran-recitation/surah-18-full-mishary.mp3');
+                        quranAudio.volume = 0.6;
+                        quranAudio.currentTime = 1210; // Moses verses timestamp
+                        quranAudio.loop = false;
+                    }
+                    
+                    if (quranAudio.paused) {
+                        quranAudio.play();
+                        recitationBtn.querySelector('.icon').textContent = '🔊';
+                        recitationBtn.style.background = 'rgba(212, 175, 55, 0.4)';
+                    } else {
+                        quranAudio.pause();
+                        recitationBtn.querySelector('.icon').textContent = '🔇';
+                        recitationBtn.style.background = 'rgba(212, 175, 55, 0.2)';
                     }
                 });
             }

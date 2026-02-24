@@ -43,7 +43,7 @@ class MosesKhidrGame {
         this.camera = new THREE.PerspectiveCamera(
             75, // Wide FOV for immersion
             window.innerWidth / window.innerHeight,
-            0.1,
+            0.5, // Fixed near plane to prevent clipping
             1000
         );
         this.camera.position.set(0, 1.7, 0); // Eye height
