@@ -77,7 +77,7 @@ const SCENES = {
         `,
         choices: [
             {
-                text: 'Sleep, trusting in Allah's protection',
+                text: "Sleep, trusting in Allah's protection",
                 next: 'divine_sleep'
             }
         ]
@@ -166,7 +166,7 @@ const SCENES = {
         `,
         choices: [
             {
-                text: 'Reflect on Allah's protection',
+                text: "Reflect on Allah's protection",
                 next: 'ending'
             }
         ]
