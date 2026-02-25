@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhul-Qarnayn - Surah Al-Kahf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        #ui-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        #story-panel {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 700px;
+            width: 90%;
+            background: rgba(26, 26, 46, 0.95);
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            border-radius: 12px;
+            padding: 30px;
+            pointer-events: all;
+            backdrop-filter: blur(10px);
+        }
+        
+        #story-text {
+            color: #e8e8e8;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        #story-text .arabic {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            color: #d4af37;
+            direction: rtl;
+            text-align: center;
+            margin: 15px 0;
+            line-height: 2;
+        }
+        
+        #story-text .translation {
+            font-style: italic;
+            color: #b8b8b8;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        #story-text .citation {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        #choices {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .choice-btn {
+            padding: 15px 25px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            color: #ffd700;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+        }
+        
+        .choice-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .choice-btn.prideful {
+            border-color: #ff6b6b;
+            color: #ff8888;
+        }
+        
+        .choice-btn.grateful {
+            border-color: #4caf50;
+            color: #8bc34a;
+        }
+        
+        #verse-display {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: rgba(26, 26, 46, 0.9);
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 350px;
+            pointer-events: all;
+        }
+        
+        #verse-display .verse-ref {
+            color: #d4af37;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        #verse-display .verse-text {
+            color: #b8b8b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+        
+        #loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-content {
+            text-align: center;
+        }
+        
+        .loading-content h1 {
+            font-family: 'Amiri', serif;
+            color: #d4af37;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .loading-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .loading-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #d4af37 0%, #b8941f 100%);
+            animation: loading 2s ease-in-out infinite;
+        }
+        
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            100% { width: 0%; }
+        }
+        
+        #return-btn {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 25px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid #d4af37;
+            color: #ffd700;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+            pointer-events: all;
+            transition: all 0.3s ease;
+        }
+        
+        #return-btn:hover {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h1>Dhul-Qarnayn</h1>
+            <p style="color: #e8e8e8; font-size: 1.2rem;">Loading Experience...</p>
+            <div class="loading-bar">
+                <div class="loading-fill"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 3D Canvas -->
+    <div id="canvas-container"></div>
+    
+    <!-- UI Overlay -->
+    <div id="ui-overlay">
+        <button id="return-btn">← Return to Menu</button>
+        
+        <div id="verse-display">
+            <div class="verse-ref">Surah Al-Kahf 18:83-98</div>
+            <div class="verse-text">
+                "And they ask you about Dhul-Qarnayn..."
+            </div>
+        </div>
+        
+        <div id="story-panel">
+            <div id="story-text"></div>
+            <div id="choices"></div>
+        </div>
+    </div>
+    
+    <!-- Three.js -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+    
+    <!-- Audio Manager -->
+    <script src="../shared/audio-manager.js"></script>
+    
+    <!-- Game Scripts -->
+    <script src="environments.js"></script>
+    <script src="scenes.js"></script>
+    <script src="game.js"></script>
+    
+    <script>
+        // Optional: Quran recitation for this chapter
+        let quranAudio = null;
+        const audioBtn = document.createElement('button');
+        audioBtn.id = 'toggle-recitation';
+        audioBtn.style.cssText = 'position: absolute; top: 30px; right: 30px; padding: 12px 20px; background: rgba(212, 175, 55, 0.2); border: 2px solid #d4af37; color: #ffd700; border-radius: 8px; cursor: pointer; font-family: "Crimson Text", serif; font-weight: 600; pointer-events: all; transition: all 0.3s ease;';
+        audioBtn.innerHTML = '<span class="icon">🔇</span> Quran';
+        document.getElementById('ui-overlay').appendChild(audioBtn);
+        
+        audioBtn.addEventListener('click', () => {
+            if (!quranAudio) {
+                quranAudio = new Audio('../shared/quran-recitation/surah-18-full-mishary.mp3');
+                quranAudio.volume = 0.6;
+                quranAudio.currentTime = 1850; // Dhul-Qarnayn verses timestamp
+                quranAudio.loop = false;
+            }
+            
+            if (quranAudio.paused) {
+                quranAudio.play();
+                audioBtn.querySelector('.icon').textContent = '🔊';
+                audioBtn.style.background = 'rgba(212, 175, 55, 0.4)';
+            } else {
+                quranAudio.pause();
+                audioBtn.querySelector('.icon').textContent = '🔇';
+                audioBtn.style.background = 'rgba(212, 175, 55, 0.2)';
+            }
+        });
+    </script>
+</body>
+</html>
