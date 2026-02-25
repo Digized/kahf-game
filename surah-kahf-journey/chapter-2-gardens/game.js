@@ -218,15 +218,17 @@ class TwoGardensGame {
     }
     
     updateProgressDisplay() {
-        // Add progress indicator to patience meter
-        const patienceMeter = document.getElementById('patience-meter');
+        // Optional progress display - only if element exists
+        const verseDisplay = document.getElementById('verse-display');
+        if (!verseDisplay) return;
+        
         let progressDiv = document.getElementById('scene-progress');
         
         if (!progressDiv) {
             progressDiv = document.createElement('div');
             progressDiv.id = 'scene-progress';
             progressDiv.style.cssText = 'margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(212,175,55,0.3); text-align: center; color: #888; font-size: 0.9rem;';
-            patienceMeter.appendChild(progressDiv);
+            verseDisplay.appendChild(progressDiv);
         }
         
         const uniqueScenes = new Set(this.sceneHistory).size;
