@@ -183,6 +183,14 @@ class EnvironmentFactory {
         scene.background = new THREE.Color(0xd4a574);
         scene.fog = new THREE.Fog(0xd4a574, 20, 60);
         
+        ImprovedVillage.create(scene);
+    }
+    
+    // Old village (backup)
+    static createVillageOld(scene) {
+        scene.background = new THREE.Color(0xd4a574);
+        scene.fog = new THREE.Fog(0xd4a574, 20, 60);
+        
         // Ground (earth/dirt)
         const groundGeometry = new THREE.PlaneGeometry(100, 100);
         const groundMaterial = new THREE.MeshLambertMaterial({ color: 0xa67c52 });
@@ -223,6 +231,14 @@ class EnvironmentFactory {
     
     // Create town
     static createTown(scene) {
+        scene.background = new THREE.Color(0xc9a86a);
+        scene.fog = new THREE.Fog(0xc9a86a, 20, 60);
+        
+        ImprovedTown.create(scene);
+    }
+    
+    // Old town (backup)
+    static createTownOld(scene) {
         scene.background = new THREE.Color(0xc9a86a);
         scene.fog = new THREE.Fog(0xc9a86a, 20, 60);
         
