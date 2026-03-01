@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Journey of Dhul-Qarnayn</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <header>
+            <h1>The Journey of Dhul-Qarnayn</h1>
+            <div id="stats-display">
+                <div class="stat">
+                    <span class="stat-label">Justice</span>
+                    <div class="stat-bar">
+                        <div id="justice-fill" class="stat-fill justice"></div>
+                    </div>
+                    <span id="justice-value">5</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Trust</span>
+                    <div class="stat-bar">
+                        <div id="trust-fill" class="stat-fill trust"></div>
+                    </div>
+                    <span id="trust-value">5</span>
+                </div>
+            </div>
+            <div id="act-display">Act I — The Western Realm</div>
+        </header>
+
+        <main id="content">
+            <div id="text-display"></div>
+            <div id="choices"></div>
+        </main>
+
+        <footer>
+            <button id="restart-btn" style="display:none;">Begin Again</button>
+        </footer>
+    </div>
+
+    <script src="game-data.js"></script>
+    <script src="engine.js"></script>
+</body>
+</html>
