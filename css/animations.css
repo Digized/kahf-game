@@ -1,0 +1,399 @@
+/* ============================================================
+   SURAH KAHF VISUAL NOVEL — animations.css
+   All CSS keyframe animations for game events
+   ============================================================ */
+
+/* ══════════════════════════════════════════════════════════════
+   CHARACTER ANIMATIONS
+   ══════════════════════════════════════════════════════════════ */
+
+/* Enter from left */
+@keyframes charEnterLeft {
+  from { transform: translateX(-120px); opacity: 0; }
+  to   { transform: translateX(0);      opacity: 1; }
+}
+
+/* Enter from right */
+@keyframes charEnterRight {
+  from { transform: translateX(120px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+/* Enter from center (rise up) */
+@keyframes charEnterCenter {
+  from { transform: translateX(-50%) translateY(40px); opacity: 0; }
+  to   { transform: translateX(-50%) translateY(0);    opacity: 1; }
+}
+
+/* Exit left */
+@keyframes charExitLeft {
+  from { transform: translateX(0);      opacity: 1; }
+  to   { transform: translateX(-120px); opacity: 0; }
+}
+
+/* Exit right */
+@keyframes charExitRight {
+  from { transform: translateX(0);     opacity: 1; }
+  to   { transform: translateX(120px); opacity: 0; }
+}
+
+/* Idle breathing */
+@keyframes charIdle {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-4px) scale(1.005); }
+}
+
+@keyframes charIdleCenter {
+  0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+  50%       { transform: translateX(-50%) translateY(-4px) scale(1.005); }
+}
+
+/* Talking bob */
+@keyframes charTalk {
+  0%, 100% { transform: translateY(0); }
+  25%       { transform: translateY(-3px); }
+  75%       { transform: translateY(-1px); }
+}
+
+@keyframes charTalkCenter {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  25%       { transform: translateX(-50%) translateY(-3px); }
+  75%       { transform: translateX(-50%) translateY(-1px); }
+}
+
+/* Walk in from left */
+@keyframes charWalkIn {
+  0%   { transform: translateX(-200px); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Shake (distress) */
+@keyframes charShake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SCENE TRANSITIONS
+   ══════════════════════════════════════════════════════════════ */
+
+@keyframes fadeToBlack {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeFromBlack {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes slideOutLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SCREEN EFFECTS
+   ══════════════════════════════════════════════════════════════ */
+
+/* Screen shake — applied to #game-container */
+@keyframes screenShake {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  10%  { transform: translate(-4px, -2px) rotate(-0.5deg); }
+  20%  { transform: translate(4px, 2px) rotate(0.5deg); }
+  30%  { transform: translate(-4px, 2px) rotate(0deg); }
+  40%  { transform: translate(4px, -2px) rotate(0.5deg); }
+  50%  { transform: translate(-2px, 4px) rotate(-0.5deg); }
+  60%  { transform: translate(2px, -4px) rotate(0deg); }
+  70%  { transform: translate(-2px, 2px) rotate(0.5deg); }
+  80%  { transform: translate(2px, 2px) rotate(-0.5deg); }
+  90%  { transform: translate(-1px, -1px) rotate(0deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.screen-shake {
+  animation: screenShake 0.6s cubic-bezier(0.36,0.07,0.19,0.97) both;
+}
+
+/* Flash white */
+@keyframes flashWhite {
+  0%   { background: rgba(255,255,255,0); }
+  20%  { background: rgba(255,255,255,0.6); }
+  100% { background: rgba(255,255,255,0); }
+}
+
+/* Flash red */
+@keyframes flashRed {
+  0%   { background: rgba(155,35,53,0); }
+  30%  { background: rgba(155,35,53,0.4); }
+  100% { background: rgba(155,35,53,0); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STORY 1: CAVE ANIMATIONS
+   ══════════════════════════════════════════════════════════════ */
+
+/* Cave closing — dark overlay expands */
+@keyframes caveClose {
+  0%   { clip-path: circle(100% at 50% 50%); }
+  100% { clip-path: circle(0% at 50% 50%); }
+}
+
+/* Stars appearing in darkness */
+@keyframes starAppear {
+  0%   { opacity: 0; transform: scale(0); }
+  60%  { opacity: 1; transform: scale(1.3); }
+  100% { opacity: 0.8; transform: scale(1); }
+}
+
+/* Cave star twinkle */
+@keyframes caveStar {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+/* Dog paw animation */
+@keyframes dogPaw {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STORY 2: BOAT DAMAGE (CENTERPIECE)
+   ══════════════════════════════════════════════════════════════ */
+
+/* Plank crack — left plank */
+@keyframes plankCrackLeft {
+  0%   { transform: rotate(0deg) translateY(0); opacity: 1; }
+  30%  { transform: rotate(-8deg) translateY(2px); }
+  60%  { transform: rotate(-15deg) translateY(8px); opacity: 0.9; }
+  100% { transform: rotate(-25deg) translateY(20px) translateX(-10px); opacity: 0.7; }
+}
+
+/* Plank crack — right plank */
+@keyframes plankCrackRight {
+  0%   { transform: rotate(0deg) translateY(0); opacity: 1; }
+  30%  { transform: rotate(8deg) translateY(2px); }
+  60%  { transform: rotate(15deg) translateY(8px); opacity: 0.9; }
+  100% { transform: rotate(25deg) translateY(20px) translateX(10px); opacity: 0.7; }
+}
+
+/* Plank crack — center plank splits */
+@keyframes plankCrackCenter {
+  0%   { transform: scaleX(1) translateY(0); }
+  40%  { transform: scaleX(1.05) translateY(3px); }
+  100% { transform: scaleX(0.6) translateY(15px); opacity: 0.5; }
+}
+
+/* Water rising through gap */
+@keyframes waterRise {
+  0%   { transform: translateY(100%) scaleX(0.5); opacity: 0; }
+  40%  { opacity: 0.8; }
+  100% { transform: translateY(0%) scaleX(1.2); opacity: 0.6; }
+}
+
+/* Water wave */
+@keyframes waterWave {
+  0%   { transform: translateX(0) scaleY(1); }
+  25%  { transform: translateX(-8px) scaleY(1.1); }
+  50%  { transform: translateX(0) scaleY(0.9); }
+  75%  { transform: translateX(8px) scaleY(1.1); }
+  100% { transform: translateX(0) scaleY(1); }
+}
+
+/* Boat rock */
+@keyframes boatRock {
+  0%   { transform: rotate(0deg); }
+  20%  { transform: rotate(-3deg); }
+  40%  { transform: rotate(4deg); }
+  60%  { transform: rotate(-2deg); }
+  80%  { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Splash droplets */
+@keyframes splashDrop {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx, 20px), var(--dy, -30px)) scale(0); opacity: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STORY 3: GARDEN DESTRUCTION
+   ══════════════════════════════════════════════════════════════ */
+
+/* Garden wilt */
+@keyframes leafWilt {
+  0%   { transform: rotate(0deg) scale(1); opacity: 1; }
+  40%  { transform: rotate(15deg) scale(0.9); }
+  100% { transform: rotate(35deg) scale(0.6) translateY(20px); opacity: 0.3; }
+}
+
+/* Fire flicker */
+@keyframes fireLick {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 0.9; }
+  25%       { transform: scaleY(1.2) scaleX(0.9); opacity: 1; }
+  50%       { transform: scaleY(0.9) scaleX(1.1); opacity: 0.8; }
+  75%       { transform: scaleY(1.15) scaleX(0.95); opacity: 1; }
+}
+
+/* Color shift: green to orange/brown */
+@keyframes gardenBurn {
+  0%   { filter: hue-rotate(0deg) saturate(1) brightness(1); }
+  50%  { filter: hue-rotate(30deg) saturate(1.5) brightness(1.1); }
+  100% { filter: hue-rotate(60deg) saturate(0.6) brightness(0.7); }
+}
+
+/* Smoke rise */
+@keyframes smokeRise {
+  0%   { transform: translateY(0) scale(0.5); opacity: 0.6; }
+  100% { transform: translateY(-80px) scale(2); opacity: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STORY 4: WALL RISING (DHUL-QARNAYN)
+   ══════════════════════════════════════════════════════════════ */
+
+/* Brick rise into place */
+@keyframes brickRise {
+  from { transform: translateY(60px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Wall glow */
+@keyframes wallGlow {
+  0%, 100% { filter: brightness(1); }
+  50%       { filter: brightness(1.3) drop-shadow(0 0 8px rgba(201,168,76,0.5)); }
+}
+
+/* Iron pour */
+@keyframes ironPour {
+  0%   { transform: scaleY(0) translateY(-100%); opacity: 0.8; }
+  100% { transform: scaleY(1) translateY(0);     opacity: 1; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   UI ANIMATIONS
+   ══════════════════════════════════════════════════════════════ */
+
+/* Typewriter cursor */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.typewriter-cursor::after {
+  content: '▋';
+  font-size: 0.8em;
+  animation: cursorBlink 0.8s step-end infinite;
+  color: var(--accent-gold, #c9a84c);
+  margin-left: 1px;
+}
+
+/* Gold shimmer */
+@keyframes goldShimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Pulse ring */
+@keyframes pulseRing {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* Float */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* Glow pulse */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(201,168,76,0.2); }
+  50%       { box-shadow: 0 0 30px rgba(201,168,76,0.5); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   AMBIENT PARTICLES
+   ══════════════════════════════════════════════════════════════ */
+
+/* Dust mote */
+@keyframes dustFloat {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.4; }
+  100% { transform: translate(var(--dx, 30px), var(--dy, -60px)) rotate(180deg); opacity: 0; }
+}
+
+/* Rain drop */
+@keyframes rainDrop {
+  from { transform: translateY(-10px); opacity: 0.7; }
+  to   { transform: translateY(110vh); opacity: 0.3; }
+}
+
+/* Sand particle */
+@keyframes sandDrift {
+  0%   { transform: translateX(0) translateY(0); opacity: 0; }
+  20%  { opacity: 0.5; }
+  80%  { opacity: 0.3; }
+  100% { transform: translateX(var(--dx, 80px)) translateY(var(--dy, 20px)); opacity: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HELPER CLASSES
+   ══════════════════════════════════════════════════════════════ */
+
+.anim-enter-left   { animation: charEnterLeft 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
+.anim-enter-right  { animation: charEnterRight 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
+.anim-enter-center { animation: charEnterCenter 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
+.anim-exit-left    { animation: charExitLeft 0.4s ease-in both; }
+.anim-exit-right   { animation: charExitRight 0.4s ease-in both; }
+.anim-idle         { animation: charIdle 4s ease-in-out infinite; }
+.anim-idle-center  { animation: charIdleCenter 4s ease-in-out infinite; }
+.anim-talk         { animation: charTalk 0.4s ease-in-out infinite; }
+.anim-talk-center  { animation: charTalkCenter 0.4s ease-in-out infinite; }
+.anim-shake        { animation: charShake 0.5s ease both; }
+.anim-walk-in      { animation: charWalkIn 1.2s cubic-bezier(0.4,0,0.2,1) both; }
+.anim-float        { animation: float 3s ease-in-out infinite; }
+.anim-glow-pulse   { animation: glowPulse 2s ease-in-out infinite; }
+
+/* ── Garden Wither ──────────────────────────────────────────── */
+@keyframes leafFall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes smokeRise {
+  0%   { transform: translateY(0) scale(1); opacity: 0.3; }
+  100% { transform: translateY(-80px) scale(2.5); opacity: 0; }
+}
+
+/* ── Wall Rise ──────────────────────────────────────────────── */
+@keyframes brickSlideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Character walk-in ──────────────────────────────────────── */
+@keyframes walkInLeft {
+  from { transform: translateX(-60px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes walkInRight {
+  from { transform: translateX(60px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.anim-walk-in {
+  animation: walkInLeft 0.6s ease both;
+}

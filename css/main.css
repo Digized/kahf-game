@@ -1,0 +1,407 @@
+/* ============================================================
+   SURAH KAHF VISUAL NOVEL — main.css
+   Global styles, design tokens, landing page
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --bg-dark:        #0a0a0f;
+  --bg-card:        #12121a;
+  --bg-card-hover:  #1a1a26;
+  --accent-gold:    #c9a84c;
+  --accent-gold-dim:#8a6e2a;
+  --accent-teal:    #2a9d8f;
+  --accent-teal-dim:#1a6b60;
+  --accent-cave:    #4a6fa5;
+  --accent-musa:    #2a9d8f;
+  --accent-garden:  #6a994e;
+  --accent-dhul:    #9b2335;
+  --text-primary:   #e8e0d0;
+  --text-secondary: #8a8070;
+  --text-muted:     #4a4438;
+  --border-subtle:  rgba(201,168,76,0.15);
+  --border-card:    rgba(201,168,76,0.25);
+  --font-arabic:    'Amiri', serif;
+  --font-ui:        'Inter', sans-serif;
+  --radius-sm:      6px;
+  --radius-md:      12px;
+  --radius-lg:      20px;
+  --shadow-card:    0 4px 24px rgba(0,0,0,0.6);
+  --shadow-glow:    0 0 40px rgba(201,168,76,0.15);
+  --transition:     0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ── Landing Page ───────────────────────────────────────────── */
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Starfield background */
+.landing::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(42,157,143,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 0%, rgba(74,111,165,0.1) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Hero Section ───────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 4rem 1.5rem 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-bismillah {
+  font-family: var(--font-arabic);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: var(--accent-gold);
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+  animation: fadeInDown 1s ease both;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  animation: fadeInDown 1s ease 0.15s both;
+}
+
+.hero-title span {
+  color: var(--accent-gold);
+}
+
+.hero-subtitle {
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  color: var(--text-secondary);
+  font-weight: 300;
+  margin-bottom: 0.75rem;
+  animation: fadeInDown 1s ease 0.25s both;
+}
+
+.hero-arabic {
+  font-family: var(--font-arabic);
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: var(--accent-gold);
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  animation: fadeInDown 1s ease 0.35s both;
+}
+
+.hero-divider {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+  margin: 0 auto 1rem;
+  animation: fadeIn 1s ease 0.5s both;
+}
+
+/* ── Story Grid ─────────────────────────────────────────────── */
+.stories-section {
+  padding: 1rem 1.5rem 4rem;
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 600px) {
+  .stories-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .stories-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+/* ── Story Card ─────────────────────────────────────────────── */
+.story-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  animation: fadeInUp 0.6s ease both;
+  text-decoration: none;
+  color: inherit;
+}
+
+.story-card:nth-child(1) { animation-delay: 0.1s; }
+.story-card:nth-child(2) { animation-delay: 0.2s; }
+.story-card:nth-child(3) { animation-delay: 0.3s; }
+.story-card:nth-child(4) { animation-delay: 0.4s; }
+
+.story-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--transition);
+  border-radius: var(--radius-lg);
+}
+
+.story-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+}
+
+.story-card:hover::before { opacity: 1; }
+
+/* Card accent colors */
+.story-card[data-story="cave"]::before {
+  background: radial-gradient(ellipse at top, rgba(74,111,165,0.12), transparent 70%);
+}
+.story-card[data-story="musa"]::before {
+  background: radial-gradient(ellipse at top, rgba(42,157,143,0.12), transparent 70%);
+}
+.story-card[data-story="gardens"]::before {
+  background: radial-gradient(ellipse at top, rgba(106,153,78,0.12), transparent 70%);
+}
+.story-card[data-story="dhul"]::before {
+  background: radial-gradient(ellipse at top, rgba(155,35,53,0.12), transparent 70%);
+}
+
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+  width: fit-content;
+}
+
+.card-badge.featured {
+  background: rgba(201,168,76,0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(201,168,76,0.3);
+}
+
+.card-badge.secondary {
+  background: rgba(138,128,112,0.15);
+  color: var(--text-secondary);
+  border: 1px solid rgba(138,128,112,0.2);
+}
+
+.card-number {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.card-arabic {
+  font-family: var(--font-arabic);
+  font-size: 1rem;
+  color: var(--accent-gold);
+  opacity: 0.7;
+}
+
+.card-lesson {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.card-lesson strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.card-scenes {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.card-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.card-play-btn.primary {
+  background: var(--accent-gold);
+  color: #0a0a0f;
+}
+
+.card-play-btn.primary:hover {
+  background: #e0bc5a;
+  transform: scale(1.05);
+}
+
+.card-play-btn.secondary-btn {
+  background: rgba(138,128,112,0.2);
+  color: var(--text-secondary);
+  border: 1px solid rgba(138,128,112,0.3);
+}
+
+.card-play-btn.secondary-btn:hover {
+  background: rgba(138,128,112,0.35);
+  color: var(--text-primary);
+}
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.landing-footer {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border-subtle);
+  position: relative;
+  z-index: 1;
+}
+
+.landing-footer a {
+  color: var(--accent-gold);
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+/* ── Stars decoration ───────────────────────────────────────── */
+.stars-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: var(--opacity, 0.4);
+}
+
+/* ── Utility ─────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Keyframes (landing) ────────────────────────────────────── */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: var(--opacity, 0.4); transform: scale(1); }
+  50%       { opacity: calc(var(--opacity, 0.4) * 0.3); transform: scale(0.8); }
+}
+
+/* ── Hero Intro Text ────────────────────────────────────────── */
+.hero-intro {
+  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease 0.5s both;
+}

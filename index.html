@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <title>Stories of Surah Kahf</title>
+  <meta name="description" content="A visual journey through the four stories of Surah Al-Kahf." />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+<!-- Starfield -->
+<div class="stars-bg" id="stars-bg" aria-hidden="true"></div>
+
+<main class="landing">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <h1 class="hero-title">Stories of <span>Surah Kahf</span></h1>
+    <p class="hero-subtitle">A visual journey through four timeless lessons</p>
+    <div class="hero-arabic">سُورَةُ الْكَهْف</div>
+    <div class="hero-divider"></div>
+    <p class="hero-intro">
+      Every Friday, Muslims around the world recite Surah Al-Kahf.<br>
+      These are the four stories within it — and why they still matter.
+    </p>
+  </header>
+
+  <!-- Story Cards -->
+  <section class="stories-section" aria-label="Choose a story">
+    <div class="stories-grid">
+
+      <!-- Story 1: People of the Cave -->
+      <a class="story-card" data-story="cave" href="game.html?story=cave" aria-label="Play People of the Cave">
+        <div class="card-badge featured">⭐ Featured</div>
+        <div class="card-number">Story I</div>
+        <div class="card-icon">🕌</div>
+        <h2 class="card-title">People of the Cave</h2>
+        <div class="card-arabic">أصحاب الكهف</div>
+        <p class="card-lesson">
+          <strong>Faith over conformity.</strong> When the world pressures you to compromise your beliefs — what do you do?
+        </p>
+        <div class="card-meta">
+          <span class="card-scenes">8 scenes · Ayahs 10–26</span>
+          <span class="card-play-btn primary">Play ›</span>
+        </div>
+      </a>
+
+      <!-- Story 2: Musa & Khidr -->
+      <a class="story-card" data-story="musa" href="game.html?story=musa" aria-label="Play Musa and Khidr">
+        <div class="card-badge featured">⭐ Featured</div>
+        <div class="card-number">Story II</div>
+        <div class="card-icon">⚓</div>
+        <h2 class="card-title">Musa & Khidr</h2>
+        <div class="card-arabic">موسى والخضر</div>
+        <p class="card-lesson">
+          <strong>Humility in knowledge.</strong> Khidr acted on Allah's direct will. You don't always see the wisdom behind what Allah decrees.
+        </p>
+        <div class="card-meta">
+          <span class="card-scenes">8 scenes · Ayahs 60–82</span>
+          <span class="card-play-btn primary">Play ›</span>
+        </div>
+      </a>
+
+      <!-- Story 3: Two Gardens -->
+      <a class="story-card" data-story="gardens" href="game.html?story=gardens" aria-label="Play The Two Gardens">
+        <div class="card-badge secondary">Story III</div>
+        <div class="card-number">Story III</div>
+        <div class="card-icon">🌿</div>
+        <h2 class="card-title">The Two Gardens</h2>
+        <div class="card-arabic">صاحب الجنتين</div>
+        <p class="card-lesson">
+          <strong>Arrogance is a trap.</strong> Wealth and status are temporary. The man who forgot Allah lost everything he thought was his.
+        </p>
+        <div class="card-meta">
+          <span class="card-scenes">6 scenes · Ayahs 32–44</span>
+          <span class="card-play-btn secondary-btn">Play ›</span>
+        </div>
+      </a>
+
+      <!-- Story 4: Dhul-Qarnayn -->
+      <a class="story-card" data-story="dhul" href="game.html?story=dhul" aria-label="Play Dhul-Qarnayn">
+        <div class="card-badge secondary">Story IV</div>
+        <div class="card-number">Story IV</div>
+        <div class="card-icon">🏔️</div>
+        <h2 class="card-title">Dhul-Qarnayn</h2>
+        <div class="card-arabic">ذو القرنين</div>
+        <p class="card-lesson">
+          <strong>Power is a trust, not an identity.</strong> A king who reached the ends of the earth — and never forgot who gave him that power.
+        </p>
+        <div class="card-meta">
+          <span class="card-scenes">5 scenes · Ayahs 83–98</span>
+          <span class="card-play-btn secondary-btn">Play ›</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <p>Content based on Surah Al-Kahf (Chapter 18) · Tafsir: Ibn Kathir</p>
+    <p style="margin-top:0.5rem; opacity:0.5;">Recitation by Mishary Rashid Al-Afasy</p>
+  </footer>
+
+</main>
+
+<script>
+  // Generate starfield
+  const starsContainer = document.getElementById('stars-bg');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.setProperty('--dur',     (2 + Math.random() * 4) + 's');
+    star.style.setProperty('--delay',   (Math.random() * 4) + 's');
+    star.style.setProperty('--opacity', (0.2 + Math.random() * 0.6).toFixed(2));
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top  = Math.random() * 100 + '%';
+    starsContainer.appendChild(star);
+  }
+</script>
+
+</body>
+</html>

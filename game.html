@@ -1,157 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surah Al-Kahf - Interactive Journey</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
-            color: #e6e6e6;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #game-container {
-            max-width: 800px;
-            width: 90%;
-            background: rgba(22, 22, 38, 0.8);
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(183, 148, 92, 0.3);
-        }
-
-        #scene-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(180deg, #2a2a3e 0%, #1a1a2e 100%);
-            border-radius: 10px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .silhouette {
-            width: 80px;
-            height: 120px;
-            background: #0a0a0f;
-            clip-path: polygon(30% 0%, 70% 0%, 85% 100%, 15% 100%);
-            margin: 0 10px;
-            opacity: 0.8;
-        }
-
-        .pattern-overlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(183, 148, 92, 0.05) 10px, rgba(183, 148, 92, 0.05) 20px);
-        }
-
-        h1 {
-            color: #b7945c;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 2em;
-        }
-
-        .chapter-title {
-            text-align: center;
-            color: #9a9a9a;
-            margin-bottom: 30px;
-            font-style: italic;
-        }
-
-        #story-text {
-            font-size: 1.1em;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            text-align: justify;
-        }
-
-        #choices {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .choice-btn {
-            background: rgba(183, 148, 92, 0.2);
-            border: 2px solid #b7945c;
-            color: #e6e6e6;
-            padding: 15px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            text-align: left;
-        }
-
-        .choice-btn:hover {
-            background: rgba(183, 148, 92, 0.4);
-            transform: translateX(10px);
-        }
-
-        .lesson {
-            background: rgba(183, 148, 92, 0.1);
-            border-left: 4px solid #b7945c;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 5px;
-        }
-
-        .lesson h3 {
-            color: #b7945c;
-            margin-bottom: 10px;
-        }
-
-        .restart-btn {
-            background: #b7945c;
-            color: #1a1a2e;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        .restart-btn:hover {
-            background: #d4a960;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <title>Surah Kahf — Visual Novel</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/game.css" />
+  <link rel="stylesheet" href="css/animations.css" />
 </head>
-<body>
-    <div id="game-container">
-        <h1>Surah Al-Kahf</h1>
-        <div class="chapter-title" id="chapter-title">Chapter 1: The Cave Sleepers</div>
-        
-        <div id="scene-image">
-            <div class="pattern-overlay"></div>
-            <div class="silhouette"></div>
-            <div class="silhouette"></div>
-            <div class="silhouette"></div>
-        </div>
+<body style="background:#000; overflow:hidden;">
 
-        <div id="story-text"></div>
-        <div id="choices"></div>
+<div id="game-container">
+
+  <!-- Scene Layer -->
+  <div id="scene-layer">
+    <div id="scene-bg"></div>
+  </div>
+
+  <!-- Transition Overlay -->
+  <div id="transition-overlay"></div>
+
+  <!-- Animation Layer (boat, cave-close, etc.) -->
+  <div id="animation-layer"></div>
+
+  <!-- Characters Layer -->
+  <div id="characters-layer"></div>
+
+  <!-- HUD -->
+  <div id="hud">
+    <a href="index.html" class="hud-back" aria-label="Back to stories">←</a>
+    <span id="hud-story-title"></span>
+    <button id="hud-mute" aria-label="Toggle mute">🔊</button>
+    <button id="hud-pause" aria-label="Pause">⏸</button>
+  </div>
+
+  <!-- Progress Bar -->
+  <div id="progress-bar-track"><div id="progress-bar"></div></div>
+
+  <!-- Dialogue Layer -->
+  <div id="dialogue-layer">
+    <div id="dialogue-box">
+      <div id="speaker-name"></div>
+      <div id="dialogue-text"></div>
+      <div id="advance-indicator">▼</div>
     </div>
+  </div>
 
-    <script src="story-data.js"></script>
-    <script src="game.js"></script>
+  <!-- Verse Display (full-screen overlay) -->
+  <div id="verse-display"></div>
+
+  <!-- Choices Layer -->
+  <div id="choices-layer">
+    <div class="choices-container"></div>
+  </div>
+
+  <!-- Pause Menu -->
+  <div id="pause-menu">
+    <div class="pause-card">
+      <h2>Paused</h2>
+      <button id="pause-resume">Resume</button>
+      <button id="pause-restart">Restart Story</button>
+      <a href="index.html" id="pause-home">Back to Stories</a>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <!-- Story Complete Screen -->
+  <div id="story-complete">
+    <div class="complete-card">
+      <div class="complete-icon">✦</div>
+      <h2 class="complete-title">Story Complete</h2>
+      <p class="complete-lesson" id="complete-lesson-text"></p>
+      <div class="complete-actions">
+        <a href="index.html" class="complete-btn primary">All Stories</a>
+        <button class="complete-btn secondary" id="complete-restart">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="js/audio.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/story-cave.js"></script>
+<script src="js/story-musa.js"></script>
+<script src="js/story-gardens.js"></script>
+<script src="js/story-dhul.js"></script>
+
+<script>
+  // Determine which story to load from URL param
+  const params   = new URLSearchParams(window.location.search);
+  const storyKey = params.get('story') || 'cave';
+
+  const storyMap = {
+    cave:    typeof StoryCave    !== 'undefined' ? StoryCave    : null,
+    musa:    typeof StoryMusa    !== 'undefined' ? StoryMusa    : null,
+    gardens: typeof StoryGardens !== 'undefined' ? StoryGardens : null,
+    dhul:    typeof StoryDhul    !== 'undefined' ? StoryDhul    : null,
+  };
+
+  const storyData = storyMap[storyKey];
+
+  if (!storyData) {
+    document.body.innerHTML = '<p style="color:white;padding:2rem;">Story not found. <a href="index.html" style="color:#c9a84c;">Go back</a></p>';
+  } else {
+    // Init engine
+    VNEngine.init('game-container');
+    VNEngine.loadStory(storyData);
+
+    // Preload audio
+    if (storyData.preloadAyahs) {
+      AudioManager.preloadStoryVerses(storyData.preloadAyahs);
+    }
+
+    // Story complete handler
+    VNEngine.onComplete(() => {
+      const el = document.getElementById('story-complete');
+      const lessonEl = document.getElementById('complete-lesson-text');
+      if (lessonEl) lessonEl.textContent = storyData.lesson || '';
+      if (el) el.classList.add('active');
+    });
+
+    // Restart button
+    document.getElementById('complete-restart')?.addEventListener('click', () => {
+      document.getElementById('story-complete').classList.remove('active');
+      VNEngine.restart();
+    });
+
+    // Start
+    VNEngine.start();
+  }
+</script>
+
 </body>
 </html>

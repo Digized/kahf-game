@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400" width="200" height="400">
+  <!-- Musa (AS) — tall, green cloak, upright confident stance -->
+  <defs>
+    <radialGradient id="musa-body-grad" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#4aaa7a"/>
+      <stop offset="100%" stop-color="#1a6a40"/>
+    </radialGradient>
+    <radialGradient id="musa-hood-grad" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#3a9a6a"/>
+      <stop offset="100%" stop-color="#0d5030"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Shadow -->
+  <ellipse cx="100" cy="395" rx="48" ry="6" fill="rgba(0,0,0,0.3)"/>
+
+  <!-- Cloak body — tall, upright -->
+  <path d="M 58 152 Q 36 215 32 322 Q 48 374 100 377 Q 152 374 168 322 Q 164 215 142 152 Z"
+        fill="url(#musa-body-grad)" opacity="0.95"/>
+
+  <!-- Cloak folds — strong vertical lines suggesting confidence -->
+  <path d="M 78 162 Q 72 245 70 328" stroke="#0d5030" stroke-width="2" fill="none" opacity="0.45"/>
+  <path d="M 122 162 Q 128 245 130 328" stroke="#0d5030" stroke-width="2" fill="none" opacity="0.45"/>
+  <path d="M 100 158 Q 100 255 100 342" stroke="#0d5030" stroke-width="1.5" fill="none" opacity="0.3"/>
+
+  <!-- Hood — tall, upright -->
+  <path d="M 52 148 Q 52 60 100 48 Q 148 60 148 148 Q 130 136 100 140 Q 70 136 52 148 Z"
+        fill="url(#musa-hood-grad)"/>
+
+  <!-- Hood shadow -->
+  <path d="M 67 140 Q 67 82 100 72 Q 133 82 133 140 Q 116 128 100 132 Q 84 128 67 140 Z"
+        fill="#052818" opacity="0.7"/>
+
+  <!-- Shoulders — broad, upright -->
+  <path d="M 52 148 Q 30 158 28 182 Q 48 170 65 164 Z" fill="#1a6a40"/>
+  <path d="M 148 148 Q 170 158 172 182 Q 152 170 135 164 Z" fill="#1a6a40"/>
+
+  <!-- Arms — strong, slightly forward -->
+  <path d="M 34 182 Q 28 232 32 272" stroke="#1a6a40" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <path d="M 166 182 Q 172 232 168 272" stroke="#1a6a40" stroke-width="14" stroke-linecap="round" fill="none"/>
+
+  <!-- Gold trim — prophet's dignity -->
+  <path d="M 32 322 Q 100 336 168 322" stroke="#c9a84c" stroke-width="2" fill="none" opacity="0.8"/>
+  <path d="M 67 140 Q 100 148 133 140" stroke="#c9a84c" stroke-width="2" fill="none" opacity="0.6"/>
+
+  <!-- Subtle glow — prophet's light -->
+  <ellipse cx="100" cy="100" rx="55" ry="55" fill="rgba(74,170,122,0.06)"/>
+</svg>

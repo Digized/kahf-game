@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400" width="200" height="400">
+  <!-- Khidr — teal/dark cloak, mysterious, slightly asymmetric -->
+  <defs>
+    <radialGradient id="khidr-body-grad" cx="45%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#2a8a8a"/>
+      <stop offset="100%" stop-color="#0d4a4a"/>
+    </radialGradient>
+    <radialGradient id="khidr-hood-grad" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#1a7a7a"/>
+      <stop offset="100%" stop-color="#083838"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Shadow -->
+  <ellipse cx="98" cy="395" rx="44" ry="6" fill="rgba(0,0,0,0.35)"/>
+
+  <!-- Cloak body — slightly asymmetric, mysterious -->
+  <path d="M 62 158 Q 42 218 38 318 Q 54 370 98 374 Q 148 372 162 318 Q 158 218 138 158 Z"
+        fill="url(#khidr-body-grad)" opacity="0.95"/>
+
+  <!-- Cloak folds — more irregular -->
+  <path d="M 80 168 Q 72 242 68 322" stroke="#083838" stroke-width="1.5" fill="none" opacity="0.5"/>
+  <path d="M 118 168 Q 126 242 130 322" stroke="#083838" stroke-width="1.5" fill="none" opacity="0.5"/>
+  <path d="M 95 162 Q 92 255 90 338" stroke="#083838" stroke-width="1" fill="none" opacity="0.35"/>
+  <!-- Extra asymmetric fold -->
+  <path d="M 108 165 Q 112 240 115 325" stroke="#083838" stroke-width="1" fill="none" opacity="0.25"/>
+
+  <!-- Hood — deeper, more mysterious -->
+  <path d="M 56 154 Q 54 68 98 56 Q 144 68 144 154 Q 126 140 98 144 Q 70 140 56 154 Z"
+        fill="url(#khidr-hood-grad)"/>
+
+  <!-- Hood shadow — very deep -->
+  <path d="M 70 146 Q 68 90 98 78 Q 130 90 130 146 Q 114 132 98 136 Q 82 132 70 146 Z"
+        fill="#020e0e" opacity="0.8"/>
+
+  <!-- Shoulders — slightly uneven -->
+  <path d="M 56 154 Q 36 164 34 186 Q 52 174 68 168 Z" fill="#0d4a4a"/>
+  <path d="M 144 154 Q 164 162 166 184 Q 148 172 132 167 Z" fill="#0d4a4a"/>
+
+  <!-- Arms -->
+  <path d="M 40 186 Q 36 234 40 272" stroke="#0d4a4a" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <path d="M 160 184 Q 164 232 160 270" stroke="#0d4a4a" stroke-width="12" stroke-linecap="round" fill="none"/>
+
+  <!-- Teal trim -->
+  <path d="M 38 318 Q 98 330 162 318" stroke="#2a9d8f" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <path d="M 70 146 Q 98 154 130 146" stroke="#2a9d8f" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+  <!-- Mysterious glow -->
+  <ellipse cx="98" cy="105" rx="50" ry="50" fill="rgba(42,138,138,0.07)"/>
+</svg>

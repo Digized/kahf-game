@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400" width="200" height="400">
+  <!-- Dhul-Qarnayn — armored silhouette, dark red cloak, crown/helmet shape -->
+  <defs>
+    <radialGradient id="dhul-body-grad" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#9b3535"/>
+      <stop offset="100%" stop-color="#4a1010"/>
+    </radialGradient>
+    <radialGradient id="dhul-armor-grad" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#6a6a7a"/>
+      <stop offset="100%" stop-color="#2a2a3a"/>
+    </radialGradient>
+    <radialGradient id="dhul-helm-grad" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#7a7a8a"/>
+      <stop offset="100%" stop-color="#3a3a4a"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Shadow -->
+  <ellipse cx="100" cy="395" rx="50" ry="7" fill="rgba(0,0,0,0.4)"/>
+
+  <!-- Cloak body — wide, commanding -->
+  <path d="M 50 185 Q 28 235 24 322 Q 42 375 100 378 Q 158 375 176 322 Q 172 235 150 185 Z"
+        fill="url(#dhul-body-grad)" opacity="0.95"/>
+
+  <!-- Cloak folds -->
+  <path d="M 70 195 Q 60 258 56 328" stroke="#4a1010" stroke-width="2" fill="none" opacity="0.45"/>
+  <path d="M 130 195 Q 140 258 144 328" stroke="#4a1010" stroke-width="2" fill="none" opacity="0.45"/>
+  <path d="M 100 190 Q 100 265 100 345" stroke="#4a1010" stroke-width="1.5" fill="none" opacity="0.3"/>
+
+  <!-- Armor chest plate -->
+  <path d="M 58 185 Q 58 155 100 148 Q 142 155 142 185 Q 128 178 100 180 Q 72 178 58 185 Z"
+        fill="url(#dhul-armor-grad)"/>
+  <!-- Armor lines -->
+  <path d="M 72 162 L 72 182" stroke="#8a8a9a" stroke-width="1" opacity="0.6"/>
+  <path d="M 128 162 L 128 182" stroke="#8a8a9a" stroke-width="1" opacity="0.6"/>
+  <path d="M 80 155 Q 100 152 120 155" stroke="#8a8a9a" stroke-width="1" opacity="0.5"/>
+
+  <!-- Shoulders — armored pauldrons -->
+  <path d="M 58 185 Q 28 178 24 205 Q 44 195 62 190 Z" fill="url(#dhul-armor-grad)"/>
+  <path d="M 142 185 Q 172 178 176 205 Q 156 195 138 190 Z" fill="url(#dhul-armor-grad)"/>
+
+  <!-- Arms -->
+  <path d="M 30 205 Q 24 252 28 290" stroke="#4a1010" stroke-width="15" stroke-linecap="round" fill="none"/>
+  <path d="M 170 205 Q 176 252 172 290" stroke="#4a1010" stroke-width="15" stroke-linecap="round" fill="none"/>
+
+  <!-- Helmet base -->
+  <path d="M 55 148 Q 55 80 100 68 Q 145 80 145 148 Q 128 136 100 140 Q 72 136 55 148 Z"
+        fill="url(#dhul-helm-grad)"/>
+
+  <!-- Helmet shadow/visor -->
+  <path d="M 68 140 Q 68 100 100 90 Q 132 100 132 140 Q 116 128 100 132 Q 84 128 68 140 Z"
+        fill="#0a0a14" opacity="0.75"/>
+
+  <!-- The Two Horns — crown/helmet horns (the defining feature) -->
+  <path d="M 72 82 Q 60 50 65 30 Q 72 48 78 72 Z" fill="#8a8a9a"/>
+  <path d="M 128 82 Q 140 50 135 30 Q 128 48 122 72 Z" fill="#8a8a9a"/>
+  <!-- Horn highlights -->
+  <path d="M 68 75 Q 63 52 66 35" stroke="#aaaabc" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <path d="M 132 75 Q 137 52 134 35" stroke="#aaaabc" stroke-width="1.5" fill="none" opacity="0.6"/>
+
+  <!-- Gold trim — royal -->
+  <path d="M 24 322 Q 100 338 176 322" stroke="#c9a84c" stroke-width="2.5" fill="none" opacity="0.85"/>
+  <path d="M 68 140 Q 100 150 132 140" stroke="#c9a84c" stroke-width="2" fill="none" opacity="0.7"/>
+  <!-- Helmet band -->
+  <path d="M 58 118 Q 100 124 142 118" stroke="#c9a84c" stroke-width="2" fill="none" opacity="0.6"/>
+</svg>
