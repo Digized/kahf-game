@@ -385,7 +385,7 @@ const VNEngine = (() => {
         bg.classList.remove('has-image');
       } else {
         bg.style.background = '#0a0a0f';
-        bg.style.backgroundImage = `url('${scene.bg}')`;
+        bg.style.backgroundImage = `url(${scene.bg})`;
         bg.style.backgroundSize = 'cover';
         bg.style.backgroundPosition = 'center';
         bg.classList.add('has-image');
