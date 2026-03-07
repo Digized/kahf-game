@@ -25,7 +25,7 @@ const StoryGardens = {
     /* ── Scene 0: Opening ─────────────────────────────────── */
     {
       id: 'opening',
-      bg: 'linear-gradient(160deg, #0a1a0a 0%, #0d2010 50%, #0a1a0a 100%)',
+      bg: 'assets/backgrounds/gardens-lush.jpg',
       ambient: null,
       characters: [],
       steps: [
@@ -43,7 +43,7 @@ const StoryGardens = {
     /* ── Scene 1: The Two Men ─────────────────────────────── */
     {
       id: 'two-men',
-      bg: 'linear-gradient(160deg, #0d2010 0%, #1a3a1a 50%, #0d2010 100%)',
+      bg: 'assets/backgrounds/gardens-lush.jpg',
       ambient: null,
       characters: [
         { id: 'rich', position: 'right', sprite: 'assets/characters/rich-man.svg', name: 'The Rich Man' },
@@ -87,7 +87,7 @@ const StoryGardens = {
     /* ── Scene 2: The Boast ───────────────────────────────── */
     {
       id: 'boast',
-      bg: 'linear-gradient(160deg, #0d2010 0%, #1a3a1a 50%, #0d2010 100%)',
+      bg: 'assets/backgrounds/gardens-lush.jpg',
       ambient: null,
       characters: [
         { id: 'rich', position: 'right', sprite: 'assets/characters/rich-man.svg', name: 'The Rich Man' },
@@ -129,7 +129,7 @@ const StoryGardens = {
     /* ── Scene 3: The Warning ─────────────────────────────── */
     {
       id: 'warning',
-      bg: 'linear-gradient(160deg, #0d2010 0%, #1a3a1a 50%, #0d2010 100%)',
+      bg: 'assets/backgrounds/gardens-lush.jpg',
       ambient: null,
       characters: [
         { id: 'rich', position: 'right', sprite: 'assets/characters/rich-man.svg', name: 'The Rich Man' },
@@ -170,7 +170,7 @@ const StoryGardens = {
     /* ── Scene 4: The Destruction ─────────────────────────── */
     {
       id: 'destruction',
-      bg: 'linear-gradient(160deg, #1a0a00 0%, #2a1000 50%, #1a0500 100%)',
+      bg: 'assets/backgrounds/gardens-ruin.jpg',
       ambient: null,
       animation: 'garden-wither',
       characters: [],

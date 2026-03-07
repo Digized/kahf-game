@@ -27,7 +27,7 @@ const StoryMusa = {
     /* ── Scene 0: Opening ─────────────────────────────────── */
     {
       id: 'opening',
-      bg: 'linear-gradient(to bottom, #0a1a2a 0%, #0d2035 50%, #0a1520 100%)',
+      bg: 'assets/backgrounds/musa-cave.jpg',
       ambient: 'desert',
       characters: [],
       steps: [
@@ -53,7 +53,7 @@ const StoryMusa = {
     /* ── Scene 1: The Journey ─────────────────────────────── */
     {
       id: 'journey',
-      bg: 'linear-gradient(160deg, #0a1520 0%, #1a2a3a 50%, #0d1a28 100%)',
+      bg: 'assets/backgrounds/musa-boat.jpg',
       ambient: 'water',
       characters: [
         { id: 'musa',    position: 'left',  sprite: 'assets/characters/musa.svg',   name: 'Musa (AS)' },
@@ -84,7 +84,7 @@ const StoryMusa = {
     /* ── Scene 2: Finding Khidr (18:65) ──────────────────── */
     {
       id: 'finding-khidr',
-      bg: 'linear-gradient(to bottom, #0a1a2a 0%, #0d2035 60%, #0a1520 100%)',
+      bg: 'assets/backgrounds/musa-cave.jpg',
       ambient: 'water',
       characters: [
         { id: 'musa',  position: 'left',  sprite: 'assets/characters/musa.svg',  name: 'Musa (AS)' },
@@ -124,7 +124,7 @@ const StoryMusa = {
     /* ── Scene 3: The Condition (18:66-70) ───────────────── */
     {
       id: 'condition',
-      bg: 'linear-gradient(to bottom, #0a1a2a 0%, #0d2035 60%, #0a1520 100%)',
+      bg: 'assets/backgrounds/musa-cave.jpg',
       ambient: 'water',
       characters: [
         { id: 'musa',  position: 'left',  sprite: 'assets/characters/musa.svg',  name: 'Musa (AS)' },
@@ -159,7 +159,7 @@ const StoryMusa = {
     /* ── Scene 4: The Boat (CENTERPIECE ANIMATION) ────────── */
     {
       id: 'boat',
-      bg: 'linear-gradient(to bottom, #0a1a2e 0%, #0d2040 40%, #0a1830 100%)',
+      bg: 'assets/backgrounds/musa-boat.jpg',
       ambient: 'water',
       animation: 'boat-damage',
       characters: [
@@ -218,7 +218,7 @@ const StoryMusa = {
     /* ── Scene 5: The Boy ─────────────────────────────────── */
     {
       id: 'boy',
-      bg: 'linear-gradient(160deg, #1a1020 0%, #2a1a10 50%, #1a0d05 100%)',
+      bg: 'assets/backgrounds/musa-boy.jpg',
       ambient: 'desert',
       characters: [
         { id: 'musa',  position: 'left',  sprite: 'assets/characters/musa.svg',  name: 'Musa (AS)' },
@@ -267,7 +267,7 @@ const StoryMusa = {
     /* ── Scene 6: The Wall ────────────────────────────────── */
     {
       id: 'wall',
-      bg: 'linear-gradient(to bottom, #1a1a0a 0%, #2a2a10 50%, #1a1a0a 100%)',
+      bg: 'assets/backgrounds/musa-wall.jpg',
       ambient: 'city',
       animation: 'wall-rise',
       characters: [
@@ -304,7 +304,7 @@ const StoryMusa = {
     /* ── Scene 7: The Explanation (18:79-82) ─────────────── */
     {
       id: 'explanation',
-      bg: 'linear-gradient(to bottom, #0a1a2a 0%, #0d2035 60%, #0a1520 100%)',
+      bg: 'assets/backgrounds/musa-cave.jpg',
       ambient: 'water',
       characters: [
         { id: 'musa',  position: 'left',  sprite: 'assets/characters/musa.svg',  name: 'Musa (AS)' },

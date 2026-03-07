@@ -25,7 +25,7 @@ const StoryDhul = {
     /* ── Scene 0: Opening ─────────────────────────────────── */
     {
       id: 'opening',
-      bg: 'linear-gradient(to bottom, #0a0005 0%, #1a0010 50%, #0a0005 100%)',
+      bg: 'assets/backgrounds/dhul-west.jpg',
       ambient: null,
       characters: [],
       steps: [
@@ -55,7 +55,7 @@ const StoryDhul = {
     /* ── Scene 1: The West ────────────────────────────────── */
     {
       id: 'west',
-      bg: 'linear-gradient(160deg, #1a0a00 0%, #2a1500 50%, #1a0800 100%)',
+      bg: 'assets/backgrounds/dhul-west.jpg',
       ambient: null,
       characters: [
         { id: 'dhul', position: 'center', sprite: 'assets/characters/dhul-qarnayn.svg', name: 'Dhul-Qarnayn' },
@@ -92,7 +92,7 @@ const StoryDhul = {
     /* ── Scene 2: The East ────────────────────────────────── */
     {
       id: 'east',
-      bg: 'linear-gradient(160deg, #0a0a1a 0%, #1a1a3a 50%, #0a0a1a 100%)',
+      bg: 'assets/backgrounds/dhul-west.jpg',
       ambient: null,
       characters: [
         { id: 'dhul', position: 'center', sprite: 'assets/characters/dhul-qarnayn.svg', name: 'Dhul-Qarnayn' },
@@ -116,7 +116,7 @@ const StoryDhul = {
     /* ── Scene 3: Yajuj & Majuj ───────────────────────────── */
     {
       id: 'yajuj-majuj',
-      bg: 'linear-gradient(to bottom, #0a0a14 0%, #141428 50%, #0a0a14 100%)',
+      bg: 'assets/backgrounds/dhul-wall.jpg',
       ambient: null,
       animation: 'wall-rise',
       characters: [

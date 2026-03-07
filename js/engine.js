@@ -382,15 +382,18 @@ const VNEngine = (() => {
       if (scene.bg.startsWith('#') || scene.bg.startsWith('rgb') || scene.bg.startsWith('linear') || scene.bg.startsWith('radial')) {
         bg.style.backgroundImage = 'none';
         bg.style.background = scene.bg;
+        bg.classList.remove('has-image');
       } else {
         bg.style.background = '#0a0a0f';
         bg.style.backgroundImage = `url('${scene.bg}')`;
         bg.style.backgroundSize = 'cover';
         bg.style.backgroundPosition = 'center';
+        bg.classList.add('has-image');
       }
     } else {
       bg.style.background = scene.bgColor || '#0a0a0f';
       bg.style.backgroundImage = 'none';
+      bg.classList.remove('has-image');
     }
 
     // Apply filter

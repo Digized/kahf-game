@@ -51,7 +51,7 @@ const StoryCave = {
     /* ── Scene 1: The City ────────────────────────────────── */
     {
       id: 'city',
-      bg: 'linear-gradient(160deg, #1a1020 0%, #2d1a0a 50%, #1a0d05 100%)',
+      bg: 'assets/backgrounds/youths-wisdom.jpg',
       ambient: 'city',
       characters: [
         { id: 'youth1', position: 'left',  sprite: 'assets/characters/youth.svg',  name: 'Youth' },
@@ -88,7 +88,7 @@ const StoryCave = {
     /* ── Scene 2: Verse 18:13 ─────────────────────────────── */
     {
       id: 'verse-13',
-      bg: 'linear-gradient(160deg, #1a1020 0%, #2d1a0a 50%, #1a0d05 100%)',
+      bg: 'assets/backgrounds/choice-execution.jpg',
       characters: [],
       steps: [
         {
@@ -105,7 +105,7 @@ const StoryCave = {
     /* ── Scene 3: The Decision ────────────────────────────── */
     {
       id: 'decision',
-      bg: 'linear-gradient(to bottom, #0d0d1a 0%, #1a1020 60%, #0a0a0f 100%)',
+      bg: 'assets/backgrounds/patience-faith.jpg',
       ambient: 'night',
       characters: [
         { id: 'youth1', position: 'left',  sprite: 'assets/characters/youth.svg',  name: 'Youth' },
@@ -158,7 +158,7 @@ const StoryCave = {
     /* ── Scene 5: The Flight ──────────────────────────────── */
     {
       id: 'flight',
-      bg: 'linear-gradient(to bottom, #0a0a14 0%, #141428 40%, #1e1e3c 100%)',
+      bg: 'assets/backgrounds/resolve-flee.jpg',
       ambient: 'night',
       animation: 'dust',
       characters: [
@@ -190,7 +190,7 @@ const StoryCave = {
     /* ── Scene 6: The Prayer (18:10) ─────────────────────── */
     {
       id: 'prayer',
-      bg: 'linear-gradient(to bottom, #050508 0%, #0a0a14 50%, #050508 100%)',
+      bg: 'assets/backgrounds/cave-refuge.jpg',
       ambient: 'cave',
       characters: [
         { id: 'youth1', position: 'left',  sprite: 'assets/characters/youth.svg',  name: 'Youth' },
@@ -265,7 +265,7 @@ const StoryCave = {
     /* ── Scene 8: The Awakening ───────────────────────────── */
     {
       id: 'awakening',
-      bg: 'linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+      bg: 'assets/backgrounds/journey-dog.jpg',
       ambient: 'cave',
       characters: [
         { id: 'youth1', position: 'left',  sprite: 'assets/characters/youth.svg',  name: 'Youth' },
